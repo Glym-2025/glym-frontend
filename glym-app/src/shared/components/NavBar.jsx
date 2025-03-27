@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../GLYM_LOGO.png";
+import { font } from "../../styles/font"
 
 const Nav = styled.nav`
     width: 100%;
@@ -15,7 +16,8 @@ const Nav = styled.nav`
 `;
 
 const Logo = styled.img`
-    width: 100px;
+    width: 116px;
+    padding-bottom: 15px;
 `;
 
 const Menu = styled(Link)`
@@ -25,10 +27,9 @@ const Menu = styled(Link)`
     display: grid;
     place-items: center;
 
+    ${font(28, 600, 1.5)}
     color: #F5F5F5;
     text-decoration: none;
-
-    transition: all 0.3s ease;
 
     &:hover {
         background: linear-gradient(45deg, #F0F0F3, #FFB4C3);
