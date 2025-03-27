@@ -1,9 +1,9 @@
-
+import AppRouter from './router';
 
 function App() {
   return (
     <>
-      <h1>Glym-app</h1>
+      <AppRouter />
     </>
   )
 }
