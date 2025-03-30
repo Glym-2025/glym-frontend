@@ -3,6 +3,7 @@ import { font } from "../../styles/font";
 import logo from "../../shared/GLYM_LOGO.png"
 import kakaoLogo from "../../shared/KAKAO_LOGO.png"
 import styled from "styled-components";
+import { lighten, darken } from 'polished';
 
 const Container = styled.div`
     width: 584px;
@@ -29,6 +30,11 @@ const Input = styled.input`
 
     border: 1px solid #929292;
     border-radius: 10px;
+
+    &:focus {
+        outline: none;
+        border: 1px solid #FF3F77;
+    }
 `;
 
 const LoginButton = styled.button`
@@ -43,6 +49,10 @@ const LoginButton = styled.button`
 
     border: none;
     border-radius: 10px;
+
+    &:hover {
+        background-color: ${(props) => darken(0.05, props.$bgColor || '#FFFFFF')};
+    }
 `;
 
 const AuthUtilityButtonContainer = styled.div`
@@ -63,6 +73,10 @@ const AuthUtilityButton = styled.button`
     color: #6B6B6B;
 
     border: none;
+
+    &:hover {
+        color: ${lighten(0.2, '#6B6B6B')};
+    }
 `;
 
 const KakaoLogo = styled.img`
