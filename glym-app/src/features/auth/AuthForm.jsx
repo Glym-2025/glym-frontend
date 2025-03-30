@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { font } from "../../styles/font";
 import logo from "../../shared/GLYM_LOGO.png"
 import kakaoLogo from "../../shared/KAKAO_LOGO.png"
@@ -66,37 +67,41 @@ const AuthUtilityButton = styled.button`
 
 const KakaoLogo = styled.img`
     width: 30px;
-    
+
     position: absolute;
     left: 16px;
     top: 50%; 
     transform: translateY(-50%);
 `;
 
+const S = {
+    Container, Input, LoginButton, AuthUtilityButton, AuthUtilityButtonContainer, KakaoLogo
+};
+
 export default function AuthForm() {
     return (
         <>
-            <Container>
+            <S.Container>
                 <img src={logo} alt="glym_logo" style={{width: "150px", margin: "30px 0 60px 0"}}></img>
                 
-                <Input type="text" placeholder="이메일"/>
-                <Input type="password" placeholder="비밀번호"/>
+                <S.Input type="text" placeholder="이메일"/>
+                <S.Input type="password" placeholder="비밀번호"/>
 
-                <LoginButton $bgColor="#FF3F77" $fontColor="#FFFFFF">로그인</LoginButton>
+                <S.LoginButton $bgColor="#FF3F77" $fontColor="#FFFFFF">로그인</S.LoginButton>
 
-                <AuthUtilityButtonContainer>
-                    <AuthUtilityButton>회원가입</AuthUtilityButton>
-                    <AuthUtilityButton>아이디 찾기</AuthUtilityButton>
-                    <AuthUtilityButton>비밀번호 찾기</AuthUtilityButton>
-                </AuthUtilityButtonContainer>
+                <S.AuthUtilityButtonContainer>
+                    <S.AuthUtilityButton>회원가입</S.AuthUtilityButton>
+                    <S.AuthUtilityButton>아이디 찾기</S.AuthUtilityButton>
+                    <S.AuthUtilityButton>비밀번호 찾기</S.AuthUtilityButton>
+                </S.AuthUtilityButtonContainer>
 
                 <hr style={{width: "400px", margin: "0 auto", marginTop: "5px", padding: ""}}/>
 
-                <LoginButton $bgColor="#FEE500" $fontColor="#000000" $marginTop="30px" style={{position: "relative"}}>
-                    <KakaoLogo src={kakaoLogo}/>
+                <S.LoginButton $bgColor="#FEE500" $fontColor="#000000" $marginTop="30px" style={{position: "relative"}}>
+                    <S.KakaoLogo src={kakaoLogo}/>
                     카카오 로그인
-                    </LoginButton>
-            </Container>
+                    </S.LoginButton>
+            </S.Container>
         </>
     );
 }
