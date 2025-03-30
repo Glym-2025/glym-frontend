@@ -79,13 +79,28 @@ const S = {
 };
 
 export default function AuthForm() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    
     return (
         <>
             <S.Container>
                 <img src={logo} alt="glym_logo" style={{width: "150px", margin: "30px 0 60px 0"}}></img>
                 
-                <S.Input type="text" placeholder="이메일"/>
-                <S.Input type="password" placeholder="비밀번호"/>
+                <S.Input 
+                    value={username}
+                    onChange={(e)=> setUsername(e.target.value)}
+                    type="email" 
+                    placeholder="이메일"
+                    required
+                />
+                <S.Input 
+                    value={password}
+                    onChange={(e)=> setPassword(e.target.value)}
+                    type="password" 
+                    placeholder="비밀번호"
+                    required
+                />
 
                 <S.LoginButton $bgColor="#FF3F77" $fontColor="#FFFFFF">로그인</S.LoginButton>
 
@@ -95,7 +110,7 @@ export default function AuthForm() {
                     <S.AuthUtilityButton>비밀번호 찾기</S.AuthUtilityButton>
                 </S.AuthUtilityButtonContainer>
 
-                <hr style={{width: "400px", margin: "0 auto", marginTop: "5px", padding: ""}}/>
+                <hr style={{width: "400px", margin: "0 auto", marginTop: "5px"}}/>
 
                 <S.LoginButton $bgColor="#FEE500" $fontColor="#000000" $marginTop="30px" style={{position: "relative"}}>
                     <S.KakaoLogo src={kakaoLogo}/>
