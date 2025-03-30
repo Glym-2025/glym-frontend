@@ -3,7 +3,7 @@ import { font } from "../../styles/font"
 
 const Container = styled.div`
     width: 500px;
-
+    
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -23,7 +23,6 @@ const P = styled.p`
 
 const Span = styled.span`
     box-sizing: border-box;
-    
 `;
 
 const Input = styled.input`
@@ -48,8 +47,6 @@ const Button = styled.button`
     width: 100px;
     height: 40px;
 
-    margin-left: 20px;
-
     ${font(14, 400, 1.5)}
     color: #929292;
     background-color: inherit;
@@ -70,7 +67,7 @@ export default function SignUpInput({ value, type, required = true, onChange, sh
 
             {showCheckButton ?
                 (<S.Button onClick={onCheck}>{buttonValue}</S.Button>)
-                : (<span style={{ width: "100px", height: "40px", boxSizing: "border-box", marginLeft: "20px" }}></span>)}
+                : (<span style={{ width: "100px", height: "40px" }}></span>)}
         </S.Container>
     )
 };
