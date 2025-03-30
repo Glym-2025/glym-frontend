@@ -49,6 +49,8 @@ const Button = styled.button`
 
     margin-left: 20px;
 
+    ${font(14, 400, 1.5)}
+    color: #929292;
     background-color: inherit;
     border-radius: 5px;
     border: 1px solid #929292;
