@@ -1,12 +1,73 @@
-function SignUpInput({ value, type, required = true, onChange, showCheckButton = false, buttonValue, onCheck }) {
+import styled from "styled-components"
+import { font } from "../../styles/font"
+
+const Container = styled.div`
+    width: 500px;
+
+    display: flex;
+    align-items: center;
+`;
+
+const P = styled.p`
+    width: 100px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    margin: auto 0;
+
+    font-size: 16px;
+    color: #222222;
+`;
+
+const Span = styled.span`
+    box-sizing: border-box;
+    color: #FF3F77;
+`;
+
+const Input = styled.input`
+    width: 250px;
+    height: 40px;
+    box-sizing: border-box;
+
+    padding: 0 10px 0 10px;
+
+    border: 1px solid #929292;
+    border-radius: 5px;
+
+    ${font(16, 400, 1.5)}
+
+    &:focus {
+        outline: none;
+        border: 1px solid #FF3F77;
+    }
+`;
+
+const Button = styled.button`
+    width: 100px;
+    height: 40px;
+
+    margin-left: 20px;
+
+    background-color: inherit;
+    border-radius: 5px;
+    border: 1px solid #929292;
+`;
+
+const S = {
+    Container, P, Span, Input, Button
+};
+
+export default function SignUpInput({ value, type, required = true, onChange, showCheckButton = false, buttonValue, onCheck }) {
     return (
-        <div>
-            <p>{value}{required && (<span>*</span>)}</p>
-            <input type={type} onChange={onChange} />
+        <S.Container>
+            <S.P>{value}{required ? (<S.Span>*</S.Span>) : <S.Span></S.Span>}</S.P>
+            
+            <S.Input type={type} onChange={onChange} />
 
             {showCheckButton && (
-                <button onClick={onCheck}>{buttonValue}</button>
+                <S.Button onClick={onCheck}>{buttonValue}</S.Button>
             )}
-        </div>
+        </S.Container>
     )
 };
