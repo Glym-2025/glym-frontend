@@ -6,6 +6,7 @@ const Container = styled.div`
 
     display: flex;
     align-items: center;
+    justify-content: space-between;
 `;
 
 const P = styled.p`
@@ -22,7 +23,7 @@ const P = styled.p`
 
 const Span = styled.span`
     box-sizing: border-box;
-    color: #FF3F77;
+    
 `;
 
 const Input = styled.input`
@@ -63,13 +64,13 @@ const S = {
 export default function SignUpInput({ value, type, required = true, onChange, showCheckButton = false, buttonValue, onCheck }) {
     return (
         <S.Container>
-            <S.P>{value}{required ? (<S.Span>*</S.Span>) : <S.Span></S.Span>}</S.P>
-            
+            <S.P>{value}{required && (<span style={{ color: "#FF3F77" }}>*</span>)}</S.P>
+
             <S.Input type={type} onChange={onChange} />
 
-            {showCheckButton && (
-                <S.Button onClick={onCheck}>{buttonValue}</S.Button>
-            )}
+            {showCheckButton ?
+                (<S.Button onClick={onCheck}>{buttonValue}</S.Button>)
+                : (<span style={{ width: "100px", height: "40px", boxSizing: "border-box", marginLeft: "20px" }}></span>)}
         </S.Container>
     )
 };
