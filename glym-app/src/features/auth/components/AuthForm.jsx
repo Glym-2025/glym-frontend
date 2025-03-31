@@ -4,11 +4,13 @@ import logo from "../../../shared/GLYM_LOGO.png"
 import kakaoLogo from "../../../shared/KAKAO_LOGO.png"
 
 export default function AuthForm() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    function handleSubmit(e) {
+        e.preventDefault();
 
-    function submitLogin(username, password) {
-        console.log("로그인 버튼 클릭 확인");
+        const form = e.target;
+        const formData = new FormData(form);
+
+        console.log([...formData.entries()]);
     }
 
     return (
@@ -16,20 +18,15 @@ export default function AuthForm() {
             <S.Auth.Container>
                 <img src={logo} alt="glym_logo" style={{ width: "150px", margin: "30px 0 60px 0" }}></img>
 
-                <form onSubmit={(e) => {
-                    e.preventDefault();
-                    submitLogin(username, password);
-                }} >
+                <form onSubmit={handleSubmit} >
                     <S.Auth.Input
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        name="username"
                         type="email"
                         placeholder="이메일"
                         required
                     />
                     <S.Auth.Input
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        name="password"
                         type="password"
                         placeholder="비밀번호"
                         required
