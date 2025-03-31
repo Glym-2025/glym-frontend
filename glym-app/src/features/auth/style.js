@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { font } from "../../styles/font";
 import { lighten, darken } from 'polished';
 
+// AuthForm Style
 const AuthFormContainer = styled.div`
     width: 584px;
     height: 700px;
@@ -85,6 +86,97 @@ const AuthFormKakaoLogo = styled.img`
     transform: translateY(-50%);
 `;
 
+// SignUp Style
+const SignUpContainer = styled.div`
+    width: 582px;
+    height: 1010px;
+    box-sizing: border-box;
+    
+    margin: 0 auto;
+    padding: 40px 0;
+    text-align: center;
+
+    background-color: #FFFFFF;
+    border: 1px solid #D9D9D9;
+`;
+
+const SignUpInputContainer = styled.div`
+    width: 500px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    margin: 0 auto;
+    align-items: center;
+`;
+
+const SignUpButton = styled.button`
+    width: 400px;
+    height: 60px;
+
+    border-radius: 10px;
+    border: none;
+
+    ${font(20, 400, 1.5)}
+    color: #FFFFFF;
+    background-color: #FF3F77;
+`;
+
+// SignUpInput Style
+const Container = styled.div`
+    width: 500px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
+
+const P = styled.p`
+    width: 100px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    margin: auto 0;
+
+    font-size: 16px;
+    color: #222222;
+`;
+
+const Span = styled.span`
+    box-sizing: border-box;
+`;
+
+const Input = styled.input`
+    width: 250px;
+    height: 40px;
+    box-sizing: border-box;
+
+    padding: 0 10px 0 10px;
+
+    border: 1px solid #929292;
+    border-radius: 5px;
+
+    ${font(16, 400, 1.5)}
+
+    &:focus {
+        outline: none;
+        border: 1px solid #FF3F77;
+    }
+`;
+
+const Button = styled.button`
+    width: 100px;
+    height: 40px;
+
+    ${font(14, 400, 1.5)}
+    color: #929292;
+    background-color: inherit;
+    border-radius: 5px;
+    border: 1px solid #929292;
+`;
+
 export const S = {
     Auth: {
         Container: AuthFormContainer,
@@ -93,5 +185,19 @@ export const S = {
         AuthUtilityButton,
         AuthUtilityButtonContainer,
         KakaoLogo: AuthFormKakaoLogo
+    },
+
+    SignUp: {
+        Container: SignUpContainer,
+        InputContainer: SignUpInputContainer,
+        Button: SignUpButton
+    },
+
+    InputRow: {
+        Container,
+        Label: P,
+        RequiredMark: Span,
+        Input,
+        Button,
     }
 };

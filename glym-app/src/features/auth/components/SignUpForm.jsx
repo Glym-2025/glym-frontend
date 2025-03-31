@@ -1,53 +1,16 @@
-import SignUpInput from "./SignUpInput"
-import styled from "styled-components"
-import { font } from "../../styles/font"
-
-const Container = styled.div`
-    width: 582px;
-    height: 1010px;
-    box-sizing: border-box;
-    
-    margin: 0 auto;
-    padding: 40px 0;
-    text-align: center;
-
-    background-color: #FFFFFF;
-    border: 1px solid #D9D9D9;
-`;
-
-const InputContainer = styled.div`
-    width: 500px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-
-    margin: 0 auto;
-    align-items: center;
-`;
-
-const SignUpButton = styled.button`
-    width: 400px;
-    height: 60px;
-
-    border-radius: 10px;
-    border: none;
-
-    ${font(20, 400, 1.5)}
-    color: #FFFFFF;
-    background-color: #FF3F77;
-`;
+import SignUpInput from "./SignUpInput";
+import { S } from "../style";
 
 export default function SignUpForm() {
     return (
         <>
-            <Container>
+            <S.SignUp.Container>
                 <p style={{fontSize: "30px", fontWeight: "400", marginBottom: "42px"}}>회원가입</p>
                 <p style={{textAlign: "right", marginRight: "40px", color: "#6B6B6B"}}><span style={{color: "#FF3F77"}}>*</span>필수입력사항</p>
 
                 <hr style={{width: "500px", margin: "0 auto", marginBottom: "30px", backgroundColor: "#929292"}}/>
 
-                <InputContainer>
+                <S.SignUp.InputContainer>
                     <SignUpInput
                         value="이메일"
                         type="email"
@@ -87,7 +50,7 @@ export default function SignUpForm() {
                         buttonValue="확인"
                         onCheck={() => console.log()}
                     />
-                </InputContainer>
+                </S.SignUp.InputContainer>
 
                 <hr style={{width: "500px", margin: "0 auto", marginTop: "30px", backgroundColor: "#929292"}}/>
 
@@ -103,8 +66,8 @@ export default function SignUpForm() {
                     <div>[선택] 마케팅 정보 수신에 동의합니다.</div>
                 </div>
 
-                <SignUpButton>가입하기</SignUpButton>
-            </Container>
+                <S.SignUp.Button>가입하기</S.SignUp.Button>
+            </S.SignUp.Container>
         </>
     );
 }
