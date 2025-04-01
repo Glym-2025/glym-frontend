@@ -123,6 +123,45 @@ const SignUpButton = styled.button`
     background-color: #FF3F77;
 `;
 
+const TermsBox = styled.div`
+    width: 500px;
+    height: 210px;
+
+    display: flex;
+    margin: 0 auto;
+    margin-top: 30px;
+    gap: 30px;
+`;
+
+const TermsWrap = styled.div`
+    flex: 1;
+    text-align: left;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+`;
+
+const TermRow = styled.div`
+    display: flex;
+
+    color: #929292;
+    ${font(16, 400, 1.5)}
+`;
+
+const TermButton = styled.button`
+    border: none;
+    text-decoration: underline;
+
+    ${font(16, 400, 1.5)}
+    color: #929292;
+    background-color: inherit;
+
+    &:hover {
+        color: #222222;
+    }
+`;
+
 // SignUpInput Style
 const Container = styled.div`
     width: 500px;
@@ -190,7 +229,12 @@ export const S = {
     SignUp: {
         Container: SignUpContainer,
         InputContainer: SignUpInputContainer,
-        Button: SignUpButton
+        Button: SignUpButton,
+        Label: P,
+        TermsBox,
+        TermsWrap,
+        TermRow,
+        TermButton
     },
 
     InputRow: {
