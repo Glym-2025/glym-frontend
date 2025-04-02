@@ -39,17 +39,6 @@ export default function SignUpForm() {
                         value="휴대폰"
                         type="text"
                         onChange={() => console.log()}
-                        showCheckButton="true"
-                        buttonValue="인증번호 받기"
-                        onCheck={() => console.log()}
-                    />
-                    <SignUpInput
-                        value="인증번호"
-                        type="text"
-                        onChange={() => console.log()}
-                        showCheckButton="true"
-                        buttonValue="확인"
-                        onCheck={() => console.log()}
                     />
                     <CustomDatePicker />
                 </S.SignUp.InputContainer>
