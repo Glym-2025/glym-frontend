@@ -1,4 +1,5 @@
 import SignUpInput from "./SignUpInput";
+import CustomDatePicker from "./CustomDatePicker";
 import { S } from "../style";
 
 export default function SignUpForm() {
@@ -50,6 +51,7 @@ export default function SignUpForm() {
                         buttonValue="확인"
                         onCheck={() => console.log()}
                     />
+                    <CustomDatePicker />
                 </S.SignUp.InputContainer>
 
                 <hr style={{ width: "500px", margin: "0 auto", marginTop: "30px", backgroundColor: "#929292" }} />
@@ -57,13 +59,13 @@ export default function SignUpForm() {
                 <S.SignUp.TermsBox>
                     <p style={{ width: "100px", fontSize: "16px", color: "#222222" }}>이용약관동의<span style={{ color: "#FF3F77" }}>*</span></p>
                     <S.SignUp.TermsWrap>
-                        <div style={{color: "#222222", fontSize: "16px"}}><input type="checkBox" style={{marginRight: "10px"}}/>전체 동의합니다.
-                            <div style={{color: "#929292", fontSize: "12px", marginLeft: "23px"}}>선택 항목에 대한 동의는 거부하셔도 서비스 이용에 제한이 없습니다.</div>
+                        <div style={{ color: "#222222", fontSize: "16px" }}><input type="checkBox" style={{ marginRight: "10px" }} />전체 동의합니다.
+                            <div style={{ color: "#929292", fontSize: "12px", marginLeft: "23px" }}>선택 항목에 대한 동의는 거부하셔도 서비스 이용에 제한이 없습니다.</div>
                         </div>
-                        <S.SignUp.TermRow><input type="checkBox" style={{marginRight: "10px"}}/>[필수]&nbsp;<S.SignUp.TermButton> 서비스 이용약관</S.SignUp.TermButton>에 동의합니다.</S.SignUp.TermRow>
-                        <S.SignUp.TermRow><input type="checkBox" style={{marginRight: "10px"}}/>[필수]&nbsp;<S.SignUp.TermButton> 개인정보 수집 및 이용</S.SignUp.TermButton>에 동의합니다.</S.SignUp.TermRow>
-                        <S.SignUp.TermRow><input type="checkBox" style={{marginRight: "10px"}}/>[필수]&nbsp;본인은 만 14세 이상입니다.</S.SignUp.TermRow>
-                        <S.SignUp.TermRow><input type="checkBox" style={{marginRight: "10px"}}/>[선택]&nbsp;마케팅 정보 수신에 동의합니다.</S.SignUp.TermRow>
+                        <S.SignUp.TermRow><input type="checkBox" style={{ marginRight: "10px" }} />[필수]&nbsp;<S.SignUp.TermButton> 서비스 이용약관</S.SignUp.TermButton>에 동의합니다.</S.SignUp.TermRow>
+                        <S.SignUp.TermRow><input type="checkBox" style={{ marginRight: "10px" }} />[필수]&nbsp;<S.SignUp.TermButton> 개인정보 수집 및 이용</S.SignUp.TermButton>에 동의합니다.</S.SignUp.TermRow>
+                        <S.SignUp.TermRow><input type="checkBox" style={{ marginRight: "10px" }} />[필수]&nbsp;본인은 만 14세 이상입니다.</S.SignUp.TermRow>
+                        <S.SignUp.TermRow><input type="checkBox" style={{ marginRight: "10px" }} />[선택]&nbsp;마케팅 정보 수신에 동의합니다.</S.SignUp.TermRow>
                     </S.SignUp.TermsWrap>
                 </S.SignUp.TermsBox>
 
