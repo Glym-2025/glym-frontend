@@ -1,8 +1,16 @@
 import SignUpInput from "./SignUpInput";
 import CustomDatePicker from "./CustomDatePicker";
 import { S } from "../style";
+import { useState } from "react";
 
 export default function SignUpForm() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [passwordConfirm, setPasswordConfirm] = useState('');
+    const [username, setUsername] = useState('');
+    const [phone, setPhone] = useState('');
+    const [birth, setBirth] = useState(null);
+
     return (
         <>
             <S.SignUp.Container>
@@ -15,7 +23,7 @@ export default function SignUpForm() {
                     <SignUpInput
                         value="이메일"
                         type="email"
-                        onChange={() => console.log()}
+                        onChange={(e) => setEmail(e.target.value)}
                         showCheckButton="true"
                         buttonValue="중복확인"
                         onCheck={() => console.log()}
@@ -23,24 +31,24 @@ export default function SignUpForm() {
                     <SignUpInput
                         value="비밀번호"
                         type="password"
-                        onChange={() => console.log()}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                     <SignUpInput
                         value="비밀번호 확인"
                         type="password"
-                        onChange={() => console.log()}
+                        onChange={(e) => setPasswordConfirm(e.target.value)}
                     />
                     <SignUpInput
                         value="이름"
                         type="text"
-                        onChange={() => console.log()}
+                        onChange={(e) => setUsername(e.target.value)}
                     />
                     <SignUpInput
                         value="휴대폰"
                         type="text"
-                        onChange={() => console.log()}
+                        onChange={(e) => setPhone(e.target.value)}
                     />
-                    <CustomDatePicker />
+                    <CustomDatePicker value={birth} onChange={(date) => setBirth(date)} />
                 </S.SignUp.InputContainer>
 
                 <hr style={{ width: "500px", margin: "0 auto", marginTop: "30px", backgroundColor: "#929292" }} />
