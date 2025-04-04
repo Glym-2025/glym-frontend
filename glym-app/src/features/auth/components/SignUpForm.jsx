@@ -2,6 +2,7 @@ import SignUpInput from "./SignUpInput";
 import CustomDatePicker from "./CustomDatePicker";
 import { S } from "../style";
 import { useState } from "react";
+import { validateEmail, validateName, validatePassword, validatePasswordConfirm, validatePhone } from "../../../utils/validators";
 
 export default function SignUpForm() {
     const [email, setEmail] = useState('');
@@ -14,6 +15,8 @@ export default function SignUpForm() {
     return (
         <>
             <S.SignUp.Container>
+                {showFail && <ErrorModal title="회원가입에 실패했습니다." onClose={() => setShowFail(false)} />}
+
                 <p style={{ fontSize: "30px", fontWeight: "400", marginBottom: "42px" }}>회원가입</p>
                 <p style={{ textAlign: "right", marginRight: "40px", color: "#6B6B6B" }}><span style={{ color: "#FF3F77" }}>*</span>필수입력사항</p>
 
@@ -27,26 +30,31 @@ export default function SignUpForm() {
                         showCheckButton="true"
                         buttonValue="중복확인"
                         onCheck={() => console.log()}
+                        error={validateEmail(email)}
                     />
                     <SignUpInput
                         value="비밀번호"
                         type="password"
                         onChange={(e) => setPassword(e.target.value)}
+                        error={validatePassword(password)}
                     />
                     <SignUpInput
                         value="비밀번호 확인"
                         type="password"
                         onChange={(e) => setPasswordConfirm(e.target.value)}
+                        error={validatePasswordConfirm(password, passwordConfirm)}
                     />
                     <SignUpInput
                         value="이름"
                         type="text"
                         onChange={(e) => setUsername(e.target.value)}
+                        error={validateName(username)}
                     />
                     <SignUpInput
                         value="휴대폰"
                         type="text"
                         onChange={(e) => setPhone(e.target.value)}
+                        error={validatePhone(phone)}
                     />
                     <CustomDatePicker value={birth} onChange={(date) => setBirth(date)} />
                 </S.SignUp.InputContainer>
