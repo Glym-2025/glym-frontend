@@ -2,7 +2,10 @@ import SignUpInput from "./SignUpInput";
 import CustomDatePicker from "./CustomDatePicker";
 import { S } from "../style";
 import { useState, useEffect } from "react";
+import { post } from "../../../utils/apis";
+import { URLS } from "../../../constants/urls";
 import { validateEmail, validateName, validatePassword, validatePasswordConfirm, validatePhone } from "../../../utils/validators";
+import { ErrorModal } from "../../../shared/components/ErrorModal";
 
 export default function SignUpForm() {
     const [email, setEmail] = useState('');
@@ -11,6 +14,9 @@ export default function SignUpForm() {
     const [username, setUsername] = useState('');
     const [phone, setPhone] = useState('');
     const [birth, setBirth] = useState(null);
+
+    const [showFail, setShowFail] = useState(false);
+    const [Modalcontext, setModalContext] = useState({ title: "", subTitle: "" });
 
     const [allChecked, setAllChecked] = useState(false);
     const [termsChecked, setTermsChecked] = useState(false);
@@ -37,10 +43,51 @@ export default function SignUpForm() {
         setAllChecked(termsChecked && privacyChecked && ageChecked);
     };
 
+    async function handleButtonClick(e) {
+        const isEmailValid = email && SignUpValidate.validateEmail(email) === '';
+        const isPasswordValid = password && SignUpValidate.validatePassword(password) === '';
+        const isPasswordConfirmValid = passwordConfirm && SignUpValidate.validatePasswordConfirm(password, passwordConfirm) === '';
+        const isNameValid = username && SignUpValidate.validateName(username) === '';
+        const isPhoneValid = phone && SignUpValidate.validatePhone(phone) === '';
+
+        const isTermsAgreed = termsChecked;
+        const isPrivacyAgreed = privacyChecked;
+        const isAgeAgreed = ageChecked;
+
+        if (!isEmailValid || !isPasswordValid || !isPasswordConfirmValid || !isNameValid || !isPhoneValid) {
+            setModalContext({title: "입력창을 확인해주세요.", subTitle: "입력값이 비었거나, 형식에 맞지 않습니다."});
+            setShowFail(true);
+            return;
+        }
+
+        if (!isTermsAgreed || !isPrivacyAgreed || !isAgeAgreed) {
+            setModalContext({title: "필수항목에 동의해주세요.", subTitle: "필수 항목에 동의해야 가입할 수 있습니다."});
+            setShowFail(true);
+            return;
+        }
+
+        const body = { email, password, username, phone }
+        const response = await post({
+            baseUrl: URLS.BASE.TEST,
+            endpoint: URLS.ENDPOINT.SIGN_UP,
+            data: body,
+        });
+
+        if (response.ok) {
+            console.log(`${response.status}: ${JSON.stringify(response.data)}`);
+            // 로그인 페이지로 이동: navigate("/login", { state: { signedUp: true } });
+
+        } else {
+            console.warn(`오류 상태 코드: ${response.status}`);
+
+            setShowFail(true);
+        }
+    }
+
     return (
         <>
             <S.SignUp.Container>
-                {showFail && <ErrorModal title="입력창을 확인해주세요." subTitle="값이 비어있거나, 형식에 맞지 않습니다." onClose={() => setShowFail(false)} />}
+                {showFail && <ErrorModal title={Modalcontext.title} subTitle={Modalcontext.subTitle} onClose={() => setShowFail(false)} />}
 
                 <p style={{ fontSize: "30px", fontWeight: "400", marginBottom: "42px" }}>회원가입</p>
                 <p style={{ textAlign: "right", marginRight: "40px", color: "#6B6B6B" }}><span style={{ color: "#FF3F77" }}>*</span>필수입력사항</p>
@@ -112,7 +159,7 @@ export default function SignUpForm() {
                     </S.SignUp.TermsWrap>
                 </S.SignUp.TermsBox>
 
-                <S.SignUp.Button>가입하기</S.SignUp.Button>
+                <S.SignUp.Button onClick={handleButtonClick}>가입하기</S.SignUp.Button>
             </S.SignUp.Container>
         </>
     );
