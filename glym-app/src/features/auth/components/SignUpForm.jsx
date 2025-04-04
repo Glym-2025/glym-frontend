@@ -1,7 +1,7 @@
 import SignUpInput from "./SignUpInput";
 import CustomDatePicker from "./CustomDatePicker";
 import { S } from "../style";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { validateEmail, validateName, validatePassword, validatePasswordConfirm, validatePhone } from "../../../utils/validators";
 
 export default function SignUpForm() {
@@ -11,6 +11,31 @@ export default function SignUpForm() {
     const [username, setUsername] = useState('');
     const [phone, setPhone] = useState('');
     const [birth, setBirth] = useState(null);
+
+    const [allChecked, setAllChecked] = useState(false);
+    const [termsChecked, setTermsChecked] = useState(false);
+    const [privacyChecked, setPrivacyChecked] = useState(false);
+    const [ageChecked, setAgeChecked] = useState(false);
+
+    useEffect(() => {
+        if (termsChecked && privacyChecked && ageChecked) {
+            setAllChecked(true);
+        } else {
+            setAllChecked(false);
+        }
+    }, [termsChecked, privacyChecked, ageChecked]);
+
+    const handleAllCheck = (e) => {
+        const checked = e.target.checked;
+        setAllChecked(checked);
+        setTermsChecked(checked);
+        setPrivacyChecked(checked);
+        setAgeChecked(checked);
+    };
+
+    const handleSingleCheck = () => {
+        setAllChecked(termsChecked && privacyChecked && ageChecked);
+    };
 
     return (
         <>
@@ -64,13 +89,26 @@ export default function SignUpForm() {
                 <S.SignUp.TermsBox>
                     <p style={{ width: "100px", fontSize: "16px", color: "#222222" }}>이용약관동의<span style={{ color: "#FF3F77" }}>*</span></p>
                     <S.SignUp.TermsWrap>
-                        <div style={{ color: "#222222", fontSize: "16px" }}><input type="checkBox" style={{ marginRight: "10px" }} />전체 동의합니다.
+                        <div style={{ color: "#222222", fontSize: "16px" }}>
+                            <input type="checkBox" name="all" style={{ marginRight: "10px" }}
+                                checked={allChecked}
+                                onChange={handleAllCheck} />전체 동의합니다.
                             <div style={{ color: "#929292", fontSize: "12px", marginLeft: "23px" }}>선택 항목에 대한 동의는 거부하셔도 서비스 이용에 제한이 없습니다.</div>
                         </div>
-                        <S.SignUp.TermRow><input type="checkBox" style={{ marginRight: "10px" }} />[필수]&nbsp;<S.SignUp.TermButton> 서비스 이용약관</S.SignUp.TermButton>에 동의합니다.</S.SignUp.TermRow>
-                        <S.SignUp.TermRow><input type="checkBox" style={{ marginRight: "10px" }} />[필수]&nbsp;<S.SignUp.TermButton> 개인정보 수집 및 이용</S.SignUp.TermButton>에 동의합니다.</S.SignUp.TermRow>
-                        <S.SignUp.TermRow><input type="checkBox" style={{ marginRight: "10px" }} />[필수]&nbsp;본인은 만 14세 이상입니다.</S.SignUp.TermRow>
-                        <S.SignUp.TermRow><input type="checkBox" style={{ marginRight: "10px" }} />[선택]&nbsp;마케팅 정보 수신에 동의합니다.</S.SignUp.TermRow>
+                        <S.SignUp.TermRow>
+                            <input type="checkBox" style={{ marginRight: "10px" }}
+                                checked={termsChecked}
+                                onChange={(e) => { setTermsChecked(e.target.checked); handleSingleCheck(); }} />[필수]&nbsp;<S.SignUp.TermButton> 서비스 이용약관</S.SignUp.TermButton>에 동의합니다.</S.SignUp.TermRow>
+                        <S.SignUp.TermRow>
+                            <input type="checkBox" style={{ marginRight: "10px" }}
+                                checked={privacyChecked}
+                                onChange={(e) => { setPrivacyChecked(e.target.checked); handleSingleCheck(); }} />[필수]&nbsp;<S.SignUp.TermButton> 개인정보 수집 및 이용</S.SignUp.TermButton>에 동의합니다.
+                        </S.SignUp.TermRow>
+                        <S.SignUp.TermRow>
+                            <input type="checkBox" style={{ marginRight: "10px" }}
+                                checked={ageChecked}
+                                onChange={(e) => { setAgeChecked(e.target.checked); handleSingleCheck(); }} />[필수]&nbsp;본인은 만 14세 이상입니다.</S.SignUp.TermRow>
+                        {/* <S.SignUp.TermRow><input type="checkBox" style={{ marginRight: "10px" }} />[선택]&nbsp;마케팅 정보 수신에 동의합니다.</S.SignUp.TermRow> */}
                     </S.SignUp.TermsWrap>
                 </S.SignUp.TermsBox>
 
