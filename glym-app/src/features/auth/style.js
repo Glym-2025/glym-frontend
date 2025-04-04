@@ -105,7 +105,7 @@ const SignUpInputContainer = styled.div`
 
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 10px;
 
     margin: 0 auto;
     align-items: center;
@@ -178,6 +178,7 @@ const P = styled.p`
     display: flex;
     align-items: center;
     margin: auto 0;
+    margin-bottom: 15px;
 
     font-size: 16px;
     color: #222222;
@@ -198,16 +199,25 @@ const Input = styled.input`
     border-radius: 5px;
 
     ${font(16, 400, 1.5)}
-
     &:focus {
         outline: none;
         border: 1px solid #FF3F77;
     }
 `;
 
+const ErrorMessage = styled.p`
+    width: 250px;
+    height: 15px;
+    color: #FF3F77;
+    font-size: 10px;
+    text-align: left;
+    align-content: center;
+`;
+
 const Button = styled.button`
     width: 100px;
     height: 40px;
+    margin-bottom: 15px;
 
     ${font(14, 400, 1.5)}
     color: #929292;
@@ -242,6 +252,7 @@ export const S = {
         Label: P,
         RequiredMark: Span,
         Input,
+        ErrorMessage,
         Button,
     }
 };
