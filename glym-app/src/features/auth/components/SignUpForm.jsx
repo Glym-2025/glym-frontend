@@ -15,7 +15,7 @@ export default function SignUpForm() {
     return (
         <>
             <S.SignUp.Container>
-                {showFail && <ErrorModal title="회원가입에 실패했습니다." onClose={() => setShowFail(false)} />}
+                {showFail && <ErrorModal title="입력창을 확인해주세요." subTitle="값이 비어있거나, 형식에 맞지 않습니다." onClose={() => setShowFail(false)} />}
 
                 <p style={{ fontSize: "30px", fontWeight: "400", marginBottom: "42px" }}>회원가입</p>
                 <p style={{ textAlign: "right", marginRight: "40px", color: "#6B6B6B" }}><span style={{ color: "#FF3F77" }}>*</span>필수입력사항</p>

@@ -59,12 +59,12 @@ const CloseButton = styled.button`
     }
 `;
 
-export function ErrorModal({ title, onClose }) {
+export function ErrorModal({ title, subTitle, onClose }) {
     return (
         <Backdrop>
             <Modal>
                 <Title>{title}</Title>
-                <Message>잠시 후 다시 시도해주세요.</Message>
+                <Message>{subTitle}</Message>
                 <CloseButton onClick={onClose}>닫기</CloseButton>
             </Modal>
         </Backdrop>
