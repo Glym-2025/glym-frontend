@@ -44,11 +44,11 @@ export default function SignUpForm() {
     };
 
     async function handleButtonClick(e) {
-        const isEmailValid = email && SignUpValidate.validateEmail(email) === '';
-        const isPasswordValid = password && SignUpValidate.validatePassword(password) === '';
-        const isPasswordConfirmValid = passwordConfirm && SignUpValidate.validatePasswordConfirm(password, passwordConfirm) === '';
-        const isNameValid = username && SignUpValidate.validateName(username) === '';
-        const isPhoneValid = phone && SignUpValidate.validatePhone(phone) === '';
+        const isEmailValid = email && validateEmail(email) === '';
+        const isPasswordValid = password && validatePassword(password) === '';
+        const isPasswordConfirmValid = passwordConfirm && validatePasswordConfirm(password, passwordConfirm) === '';
+        const isNameValid = username && validateName(username) === '';
+        const isPhoneValid = phone && validatePhone(phone) === '';
 
         const isTermsAgreed = termsChecked;
         const isPrivacyAgreed = privacyChecked;
