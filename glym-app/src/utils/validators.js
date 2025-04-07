@@ -23,15 +23,9 @@ export const validatePassword = (password) => {
 };
 
 export const validatePasswordConfirm = (password, confirmPassword) => {
-  const { REQUIRED, LENGTH, COMPLEXITY } = ERROR_MESSAGE.PASSWORD_CONFIRM_MESSAGES;
+  const { REQUIRED } = ERROR_MESSAGE.PASSWORD_CONFIRM_MESSAGES;
 
-  if (!confirmPassword) return REQUIRED;
-  if (confirmPassword.length < 8) return LENGTH;
-
-  const complexityRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^\w\s]).{8,}$/;
-  if (!complexityRegex.test(confirmPassword)) return COMPLEXITY;
-
-  if (password !== confirmPassword) return REQUIRED;
+  if (!confirmPassword || password !== confirmPassword) return REQUIRED;
 
   return '';
 };

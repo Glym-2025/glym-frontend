@@ -11,8 +11,6 @@ export const PASSWORD_MESSAGES = {
 
 export const PASSWORD_CONFIRM_MESSAGES = {
   REQUIRED: "비밀번호가 일치하지 않습니다.",
-  LENGTH: "비밀번호는 8자 이상이어야 합니다.",
-  COMPLEXITY: "영문, 숫자, 특수문자를 포함해야 합니다.",
 };
 
 export const NAME_MESSAGES = {
