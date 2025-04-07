@@ -5,6 +5,7 @@ export const URLS = {
   },
   ENDPOINT: {
     SIGN_UP: "/signup",
+    CHECK_EMAIL: "/signup/check-email",
     LOGIN: "/login",
   },
 };

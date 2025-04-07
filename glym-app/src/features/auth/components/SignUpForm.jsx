@@ -2,7 +2,7 @@ import SignUpInput from "./SignUpInput";
 import CustomDatePicker from "./CustomDatePicker";
 import { S } from "../style";
 import { useState, useEffect } from "react";
-import { post } from "../../../utils/apis";
+import { post, get } from "../../../utils/apis";
 import { URLS } from "../../../constants/urls";
 import { validateEmail, validateName, validatePassword, validatePasswordConfirm, validatePhone } from "../../../utils/validators";
 import { ErrorModal } from "../../../shared/components/ErrorModal";
@@ -17,6 +17,8 @@ export default function SignUpForm() {
 
     const [showFail, setShowFail] = useState(false);
     const [Modalcontext, setModalContext] = useState({ title: "", subTitle: "" });
+
+    const [duplicateChecked, setDuplicateChecked] = useState(false);
 
     const [allChecked, setAllChecked] = useState(false);
     const [termsChecked, setTermsChecked] = useState(false);
@@ -42,6 +44,34 @@ export default function SignUpForm() {
     const handleSingleCheck = () => {
         setAllChecked(termsChecked && privacyChecked && ageChecked);
     };
+
+    async function handleCheckDuplicate(e) {
+        const isEmailValid = email && validateEmail(email) === '';
+
+        if ( !isEmailValid ) {
+            setModalContext({title:"이메일 형식이 올바르지 않습니다.", subTitle:"형식에 맞게 입력해주세요. (예: example@email.com)"});
+            setShowFail(true)
+            return;
+        }
+        const response = await get({
+            baseUrl: URLS.BASE.TEST,
+            endpoint: URLS.ENDPOINT.CHECK_EMAIL,
+            params: {email}
+        })
+
+        if ( response.ok ) {
+            console.log(response.data);
+
+            setModalContext({title:"사용 가능한 이메일입니다.", subTitle:""});
+            setShowFail(true)
+        }
+        else {
+            console.log("api 연결 실패");
+
+            setModalContext({title:"이미 회원가입된 이메일입니다.", subTitle:"가입된 이메일로 로그인하시거나 다른 이메일을 사용해주세요."});
+            setShowFail(true);
+        }
+    }
 
     async function handleButtonClick(e) {
         const isEmailValid = email && validateEmail(email) === '';
@@ -101,7 +131,7 @@ export default function SignUpForm() {
                         onChange={(e) => setEmail(e.target.value)}
                         showCheckButton="true"
                         buttonValue="중복확인"
-                        onCheck={() => console.log()}
+                        onCheck={handleCheckDuplicate}
                         error={validateEmail(email)}
                     />
                     <SignUpInput
