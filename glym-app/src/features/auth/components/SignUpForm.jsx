@@ -8,12 +8,13 @@ import { validateEmail, validateName, validatePassword, validatePasswordConfirm,
 import { ErrorModal } from "../../../shared/components/ErrorModal";
 
 export default function SignUpForm() {
-    const [email, setEmail] = useState('');
+    const [id, setId] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [username, setUsername] = useState('');
     const [phone, setPhone] = useState('');
     const [birth, setBirth] = useState(null);
+    const [domain, setDomain] = useState('gmail.com');
 
     const [showFail, setShowFail] = useState(false);
     const [Modalcontext, setModalContext] = useState({ title: "", subTitle: "" });
@@ -46,35 +47,36 @@ export default function SignUpForm() {
     };
 
     async function handleCheckDuplicate(e) {
-        const isEmailValid = email && validateEmail(email) === '';
+        const isEmailValid = id && validateEmail(`${id}@${domain}`) === '';
 
-        if ( !isEmailValid ) {
-            setModalContext({title:"이메일 형식이 올바르지 않습니다.", subTitle:"형식에 맞게 입력해주세요. (예: example@email.com)"});
+        if (!isEmailValid) {
+            setModalContext({ title: "이메일 형식이 올바르지 않습니다.", subTitle: "형식에 맞게 입력해주세요. (예: example@email.com)" });
             setShowFail(true)
             return;
         }
         const response = await get({
             baseUrl: URLS.BASE.TEST,
             endpoint: URLS.ENDPOINT.CHECK_EMAIL,
-            params: {email}
+            params: { email: `${id}@${domain}` }
         })
 
-        if ( response.ok ) {
+        if (response.ok) {
             console.log(response.data);
 
-            setModalContext({title:"사용 가능한 이메일입니다.", subTitle:""});
-            setShowFail(true)
+            setModalContext({ title: "사용 가능한 이메일입니다.", subTitle: "" });
+            setShowFail(true);
+            setDuplicateChecked(true);
         }
         else {
             console.log("api 연결 실패");
 
-            setModalContext({title:"이미 회원가입된 이메일입니다.", subTitle:"가입된 이메일로 로그인하시거나 다른 이메일을 사용해주세요."});
+            setModalContext({ title: "이미 회원가입된 이메일입니다.", subTitle: "가입된 이메일로 로그인하시거나 다른 이메일을 사용해주세요." });
             setShowFail(true);
         }
     }
 
     async function handleButtonClick(e) {
-        const isEmailValid = email && validateEmail(email) === '';
+        const isEmailValid = id && validateEmail(`${id}@${domain}`) === '';
         const isPasswordValid = password && validatePassword(password) === '';
         const isPasswordConfirmValid = passwordConfirm && validatePasswordConfirm(password, passwordConfirm) === '';
         const isNameValid = username && validateName(username) === '';
@@ -85,18 +87,30 @@ export default function SignUpForm() {
         const isAgeAgreed = ageChecked;
 
         if (!isEmailValid || !isPasswordValid || !isPasswordConfirmValid || !isNameValid || !isPhoneValid) {
-            setModalContext({title: "입력창을 확인해주세요.", subTitle: "입력값이 비었거나, 형식에 맞지 않습니다."});
+            setModalContext({ title: "입력창을 확인해주세요.", subTitle: "입력값이 비었거나, 형식에 맞지 않습니다." });
+            setShowFail(true);
+            return;
+        }
+
+        if ( !duplicateChecked ) {
+            setModalContext({ title: "이메일 중복 확인을 완료해주세요.", subTitle: "" });
             setShowFail(true);
             return;
         }
 
         if (!isTermsAgreed || !isPrivacyAgreed || !isAgeAgreed) {
-            setModalContext({title: "필수항목에 동의해주세요.", subTitle: "필수 항목에 동의해야 가입할 수 있습니다."});
+            setModalContext({ title: "필수항목에 동의해주세요.", subTitle: "필수 항목에 동의해야 가입할 수 있습니다." });
             setShowFail(true);
             return;
         }
 
-        const body = { email, password, username, phone }
+        const body = {
+            email: `${id}@${domain}`,
+            password,
+            username,
+            phone,
+          };
+          
         const response = await post({
             baseUrl: URLS.BASE.TEST,
             endpoint: URLS.ENDPOINT.SIGN_UP,
@@ -128,11 +142,13 @@ export default function SignUpForm() {
                     <SignUpInput
                         value="이메일"
                         type="email"
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => {setId(e.target.value); setDuplicateChecked(false);}}
                         showCheckButton="true"
                         buttonValue="중복확인"
+                        isDisabled={duplicateChecked}
                         onCheck={handleCheckDuplicate}
-                        error={validateEmail(email)}
+                        onDomainChange={(e) => {setDomain(e.target.options[e.target.selectedIndex].text); console.log(id+'@'+domain); setDuplicateChecked(false);}}
+                        error={validateEmail(id+'@'+domain)}
                     />
                     <SignUpInput
                         value="비밀번호"

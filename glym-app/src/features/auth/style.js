@@ -189,7 +189,10 @@ const Span = styled.span`
 `;
 
 const Input = styled.input`
-    width: 250px;
+    width: ${(props) => {
+        if (props.type === "email") return "135px";
+        else return "250px";
+    }};
     height: 40px;
     box-sizing: border-box;
 
@@ -220,8 +223,15 @@ const Button = styled.button`
     margin-bottom: 15px;
 
     ${font(14, 400, 1.5)}
-    color: #929292;
-    background-color: inherit;
+    ${(props) => {
+        if (props.disabled) {
+            return`color: #929292; background-color: #d9d9d9;`;
+        }
+        else {
+            return`color: #FFFFFF; background-color:  #FF3F77;`;
+        }
+    }}
+
     border-radius: 5px;
     border: 1px solid #929292;
 `;
