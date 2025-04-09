@@ -89,13 +89,14 @@ const AuthFormKakaoLogo = styled.img`
 // SignUp Style
 const SignUpContainer = styled.div`
     width: 582px;
-    height: 1010px;
+    height: 950px;
     box-sizing: border-box;
     
     margin: 0 auto;
     padding: 40px 0;
     text-align: center;
 
+    border-radius: 10px;
     background-color: #FFFFFF;
     border: 1px solid #D9D9D9;
 `;

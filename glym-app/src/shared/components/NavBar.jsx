@@ -53,7 +53,7 @@ export default function NavBar() {
                 <S.Menu to="/">폰트제작</S.Menu>
                 <S.Menu to="/">이용내역</S.Menu>
                 <S.Menu to="/">마이페이지</S.Menu>
-                <S.Menu to="/">로그인</S.Menu>
+                <S.Menu to="/signup">로그인</S.Menu>
             </S.Nav>
         </>
     );
