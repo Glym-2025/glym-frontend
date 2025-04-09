@@ -6,6 +6,7 @@ import { post, get } from "../../../utils/apis";
 import { URLS } from "../../../constants/urls";
 import { validateEmail, validateName, validatePassword, validatePasswordConfirm, validatePhone } from "../../../utils/validators";
 import { ErrorModal } from "../../../shared/components/ErrorModal";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUpForm() {
     const [id, setId] = useState('');
@@ -25,6 +26,8 @@ export default function SignUpForm() {
     const [termsChecked, setTermsChecked] = useState(false);
     const [privacyChecked, setPrivacyChecked] = useState(false);
     const [ageChecked, setAgeChecked] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (termsChecked && privacyChecked && ageChecked) {
@@ -119,11 +122,9 @@ export default function SignUpForm() {
 
         if (response.ok) {
             console.log(`${response.status}: ${JSON.stringify(response.data)}`);
-            // 로그인 페이지로 이동: navigate("/login", { state: { signedUp: true } });
-
+            navigate("/login", { state: { signedUp: true } });
         } else {
             console.warn(`오류 상태 코드: ${response.status}`);
-
             setShowFail(true);
         }
     }
