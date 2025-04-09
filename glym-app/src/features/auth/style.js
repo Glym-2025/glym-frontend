@@ -11,6 +11,7 @@ const AuthFormContainer = styled.div`
 
     border: 1px solid #D9D9D9;
     border-radius: 10px;
+    background-color: #FFFFFF;
 `;
 
 const AuthFormInput = styled.input`
