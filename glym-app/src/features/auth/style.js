@@ -220,7 +220,7 @@ const ErrorMessage = styled.p`
 const Button = styled.button`
     width: 100px;
     height: 40px;
-    margin-bottom: 15px;s
+    margin-bottom: 15px;
 
     ${font(14, 400, 1.5)}
     ${(props) => {
