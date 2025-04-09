@@ -85,6 +85,157 @@ const AuthFormKakaoLogo = styled.img`
     transform: translateY(-50%);
 `;
 
+// SignUp Style
+const SignUpContainer = styled.div`
+    width: 582px;
+    height: 950px;
+    box-sizing: border-box;
+    
+    margin: 0 auto;
+    padding: 40px 0;
+    text-align: center;
+
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    border: 1px solid #D9D9D9;
+`;
+
+const SignUpInputContainer = styled.div`
+    width: 500px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin: 0 auto;
+    align-items: center;
+`;
+
+const SignUpButton = styled.button`
+    width: 400px;
+    height: 60px;
+
+    border-radius: 10px;
+    border: none;
+
+    ${font(20, 400, 1.5)}
+    color: #FFFFFF;
+    background-color: #FF3F77;
+`;
+
+const TermsBox = styled.div`
+    width: 500px;
+    height: 210px;
+
+    display: flex;
+    margin: 0 auto;
+    margin-top: 30px;
+    gap: 30px;
+`;
+
+const TermsWrap = styled.div`
+    flex: 1;
+    text-align: left;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+`;
+
+const TermRow = styled.div`
+    display: flex;
+
+    color: #929292;
+    ${font(16, 400, 1.5)}
+`;
+
+const TermButton = styled.button`
+    border: none;
+    text-decoration: underline;
+
+    ${font(16, 400, 1.5)}
+    color: #929292;
+    background-color: inherit;
+
+    &:hover {
+        color: #222222;
+    }
+`;
+
+// SignUpInput Style
+const Container = styled.div`
+    width: 500px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
+
+const P = styled.p`
+    width: 100px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    margin: auto 0;
+    margin-bottom: 15px;
+
+    font-size: 16px;
+    color: #222222;
+`;
+
+const Span = styled.span`
+    box-sizing: border-box;
+`;
+
+const Input = styled.input`
+    width: ${(props) => {
+        if (props.type === "email") return "135px";
+        else return "250px";
+    }};
+    height: 40px;
+    box-sizing: border-box;
+
+    padding: 0 10px 0 10px;
+
+    border: 1px solid #929292;
+    border-radius: 5px;
+
+    ${font(16, 400, 1.5)}
+    &:focus {
+        outline: none;
+        border: 1px solid #FF3F77;
+    }
+`;
+
+const ErrorMessage = styled.p`
+    width: 250px;
+    height: 15px;
+    color: #FF3F77;
+    font-size: 10px;
+    text-align: left;
+    align-content: center;
+`;
+
+const Button = styled.button`
+    width: 100px;
+    height: 40px;
+    margin-bottom: 15px;s
+
+    ${font(14, 400, 1.5)}
+    ${(props) => {
+        if (props.disabled) {
+            return`color: #929292; background-color: #d9d9d9;`;
+        }
+        else {
+            return`color: #FFFFFF; background-color:  #FF3F77;`;
+        }
+    }}
+
+    border-radius: 5px;
+    border: 1px solid #929292;
+`;
+
 export const S = {
     Auth: {
         Container: AuthFormContainer,
