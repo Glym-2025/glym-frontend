@@ -1,9 +1,10 @@
-import ImageUploadForm from "../features/fontcreation/components/ImageUploadForm";
+import { ImageUploadForm, FontInfoForm } from "../features/fontcreation";
 
 export default function FontCreationPage() {
     return(
-        <div style={{marginTop:"100px"}}>
+        <div style={{margin:"0 auto", marginTop:"100px", display:"flex", gap: "30px"}}>
             <ImageUploadForm />
+            <FontInfoForm />
         </div>
     );
 }
