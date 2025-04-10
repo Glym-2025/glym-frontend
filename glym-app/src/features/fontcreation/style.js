@@ -115,14 +115,14 @@ const CheckButton = styled.button`
     text-align: center;
 
     border-radius: 10px;
-    border: 1px solid #F43C71;
+    border: 1px solid ${(props) => props.color || "#F43C71"};
 
     ${font(18, 400, 1.5)}
-    color: #F43C71;
+    color: ${(props) => props.color || "#F43C71"};
     background-color: #FFFFFF;
 
     &:hover {
-        background-color: ${darken(0.1, "#FFFFFF")};
+        background-color: ${props => !props.disabled ? darken(0.1, "#FFFFFF") : "inherit"};
     }
 `;
 

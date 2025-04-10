@@ -1,15 +1,42 @@
+import { useState } from "react";
+import { ErrorModal } from "../../../shared/components/ErrorModal";
 import { S } from "../style";
 
 export default function FontInfoForm() {
+    const [fontName, setFontName] = useState("");
+    const [fontNameCheck, setFontNameCheck] = useState(false);
+    const [fontNameCheckResult, setFontNameCheckResult] = useState("");
+    const [errorModal, setErrorModal] = useState(false);
+
+    const handleFontNameCheck = () => {
+        const fontNameRegex = /^[a-zA-Z0-9]+$/;
+        if (!fontNameRegex.test(fontName)) {
+            setFontNameCheckResult("error");
+            setErrorModal(true);
+            return;
+        }
+
+        // 서버에서 폰트명 검사할 예정
+        setFontNameCheck(true);
+    };
     return (
         <S.FontInfoForm.Container>
-            <div style={{padding: "30px"}}>
-                <p style={{marginBottom: "15px", color: "#222222"}}>폰트명</p>
+            {errorModal && <ErrorModal title="폰트명은 숫자와 영문만 사용 가능합니다." onClose={() => setErrorModal(false)} />}
+            <div style={{ padding: "30px" }}>
+                <p style={{ marginBottom: "15px", color: "#222222" }}>폰트명</p>
                 <S.FontInfoForm.InputBox>
-                    <S.FontInfoForm.Input type="text" />
-                    <S.FontInfoForm.CheckButton>확인</S.FontInfoForm.CheckButton>
+                    <S.FontInfoForm.Input type="text" value={fontName} onChange={(e) => { setFontName(e.target.value); setFontNameCheck(false); }} />
+                    <S.FontInfoForm.CheckButton color={fontName === "" ? "#929292" : "#F43C71"} onClick={handleFontNameCheck} disabled={fontName === "" || fontNameCheck}>확인</S.FontInfoForm.CheckButton>
                 </S.FontInfoForm.InputBox>
-                <p style={{marginLeft: "10px", fontSize: "12px", color: "#F43C71"}}>✨ 사용 가능한 폰트명입니다.</p>
+                <p style={{ marginLeft: "10px", fontSize: "12px", color: "#F43C71" }}>
+                    {fontName === ""
+                        ? "❕ 글자를 입력 해주세요."
+                        : !fontNameCheck
+                            ? "❕ 확인 버튼을 눌러주세요."
+                            : fontNameCheckResult === "success"
+                                ? "✨ 사용 가능한 폰트명입니다."
+                                : "❕ 사용 불가능한 폰트명입니다."}
+                </p>
             </div>
 
             <S.FontInfoForm.GuideBox>
