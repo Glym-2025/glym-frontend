@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { font } from "../../styles/font";
+import { darken } from "polished";
 
 // ImageUploadForm
 const ImageUploadFormContainer = styled.div`
@@ -38,6 +39,10 @@ const FileSelectButton = styled.button`
     ${font(18, 400, 1.5)}
     color: #FFFFFF;
     background-color: #94C7FE;
+
+    &:hover {
+        background-color: ${darken(0.1, "#94C7FE")};
+    }
 `;
 
 const ImageGuideBox = styled.div`
@@ -105,7 +110,7 @@ const CheckButton = styled.button`
     background-color: #FFFFFF;
 
     &:hover {
-        background-color: #F1F1F1;
+        background-color: ${darken(0.1, "#FFFFFF")};
     }
 `;
 
