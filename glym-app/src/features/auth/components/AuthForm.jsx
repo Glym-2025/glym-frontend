@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { S } from '../style';
 import logo from "../../../shared/GLYM_LOGO.png"
 import kakaoLogo from "../../../shared/KAKAO_LOGO.png"
+import { useNavigate } from "react-router-dom";
 
 export default function AuthForm() {
+    const navigate = useNavigate();
+
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -42,7 +45,7 @@ export default function AuthForm() {
                 </form>
 
                 <S.Auth.AuthUtilityButtonContainer>
-                    <S.Auth.AuthUtilityButton>회원가입</S.Auth.AuthUtilityButton>
+                    <S.Auth.AuthUtilityButton onClick={() => navigate("/signup")}>회원가입</S.Auth.AuthUtilityButton>
                     <S.Auth.AuthUtilityButton>아이디 찾기</S.Auth.AuthUtilityButton>
                     <S.Auth.AuthUtilityButton>비밀번호 찾기</S.Auth.AuthUtilityButton>
                 </S.Auth.AuthUtilityButtonContainer>
