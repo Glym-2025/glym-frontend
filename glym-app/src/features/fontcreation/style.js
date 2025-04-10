@@ -27,6 +27,18 @@ const DropBox = styled.div`
     color: #929292;
 `;
 
+const ImagePreviewBox = styled.div`
+    width: 80%;
+    height: 80%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid #D9D9D9;
+    border-radius: 10px;
+`;
+
 const FileSelectButton = styled.button`
     width: 180px;
     height: 40px;
@@ -143,7 +155,8 @@ export const S = {
         Container: ImageUploadFormContainer,
         DropBox: DropBox,
         SelectButton: FileSelectButton,
-        GuideBox: ImageGuideBox
+        GuideBox: ImageGuideBox,
+        ImagePreviewBox
     },
     FontInfoForm: {
         Container: FontInfoFormContainer,
