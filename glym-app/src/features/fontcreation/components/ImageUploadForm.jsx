@@ -6,6 +6,8 @@ import { ErrorModal } from "../../../shared/components/ErrorModal";
 export default function ImageUploadForm() {
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [isDragOver, setIsDragOver] = useState(false);
+    const [error, setError] = useState(false);
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
@@ -13,25 +15,58 @@ export default function ImageUploadForm() {
             return;
         }
 
+        // 서버에서 이미지 검사할 예정
+
         setFile(selectedFile);
+
+        const url = URL.createObjectURL(selectedFile);
+        setPreviewUrl(url);
+    };
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        setIsDragOver(true);
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        setIsDragOver(false);
+
+        const selectedFile = e.dataTransfer.files[0];
+        if (!selectedFile) {
+            return;
+        }
+
+        // 서버에서 이미지 검사할 예정
         
         // 파일 형식 png 인지 검사
         if (selectedFile && selectedFile.type === "image/png" && selectedFile.name.endsWith(".png")) {
             const url = URL.createObjectURL(selectedFile);
             setPreviewUrl(url);
+        } else if (!selectedFile.type) {
+            setError(true);
+            return;
         } else {
-            <ErrorModal
-                title="PNG 파일만 업로드할 수 있습니다."
-                description="PNG 파일만 업로드할 수 있습니다."
-                buttonText="확인"
-                onClose={() => {}}
-            />
+            setError(true);
             return;
         }
+        setFile(selectedFile);
+
+        const url = URL.createObjectURL(selectedFile);
+        setPreviewUrl(url);
+    };
+
+    const handleDragLeave = () => {
+        setIsDragOver(false);
     };
 
     return (
         <S.ImageUploadForm.Container>
+            {error && <ErrorModal
+                title="해당 파일은 지원하지 않습니다."
+                subTitle="PNG 파일만 업로드할 수 있습니다."
+                onClose={() => { setError(false); }}
+            />}
             <input
                 type="file"
                 accept="image/png"
@@ -42,18 +77,28 @@ export default function ImageUploadForm() {
             {file ?
                 (
                     <S.ImageUploadForm.DropBox>
-                        <S.ImageUploadForm.ImagePreviewBox>
+                        <S.ImageUploadForm.ImagePreviewBox
+                            onDragOver={handleDragOver}
+                            onDrop={handleDrop}
+                            onDragLeave={handleDragLeave}
+                            style={{ backgroundColor: isDragOver && "#efefef", borderRadius: "10px" }}
+                        >
                             {previewUrl && <img src={previewUrl} alt="preview" style={{ maxWidth: "90%", maxHeight: "70%", height: "auto" }} />}
                         </S.ImageUploadForm.ImagePreviewBox>
 
-                        <div style={{width: "80%", display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                        <div style={{ width: "80%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <p style={{ marginTop: "10px" }}>{file.name}</p>
-                            <S.ImageUploadForm.SelectButton style={{width: "150px"}} onClick={() => document.getElementById('file-upload').click()}>다른 파일 선택</S.ImageUploadForm.SelectButton>
+                            <S.ImageUploadForm.SelectButton style={{ width: "150px" }} onClick={() => document.getElementById('file-upload').click()}>다른 파일 선택</S.ImageUploadForm.SelectButton>
                         </div>
                     </S.ImageUploadForm.DropBox>
                 ) :
                 (
-                    <S.ImageUploadForm.DropBox>
+                    <S.ImageUploadForm.DropBox
+                        onDragOver={handleDragOver}
+                        onDrop={handleDrop}
+                        onDragLeave={handleDragLeave}
+                        style={{ backgroundColor: isDragOver && "#efefef", borderRadius: "10px" }}
+                    >
                         <img src={fileLogo} alt="dropBox" style={{ width: "80px", height: "80px", marginBottom: "30px" }} />
                         여기에 파일을 드롭하세요!
                         <S.ImageUploadForm.SelectButton onClick={() => document.getElementById('file-upload').click()}>파일 선택</S.ImageUploadForm.SelectButton>
