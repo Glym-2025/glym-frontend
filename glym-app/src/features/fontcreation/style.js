@@ -132,6 +132,12 @@ const GuideTitle = styled.p`
     color: #6B6B6B;
 `;
 
+const Ul = styled.ul`
+    ${font(16, 400, 1.2)}
+    list-style-type: none;
+    color: #929292;
+`;
+
 export const S = {
     ImageUploadForm: {
         Container: ImageUploadFormContainer,
@@ -142,9 +148,10 @@ export const S = {
     FontInfoForm: {
         Container: FontInfoFormContainer,
         InputBox: InputBox,
-        Input: Input,
-        CheckButton: CheckButton,
+        Input,
+        CheckButton,
         GuideBox: FontGuideBox,
-        GuideTitle: GuideTitle
+        GuideTitle: GuideTitle,
+        Ul
     }
 }

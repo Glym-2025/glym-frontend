@@ -14,28 +14,28 @@ export default function FontInfoForm() {
 
             <S.FontInfoForm.GuideBox>
                 <S.FontInfoForm.GuideTitle>폰트명 작성 안내</S.FontInfoForm.GuideTitle>
-                <ul style={{listStyleType: "none", color: "#929292"}}>
+                <S.FontInfoForm.Ul>
                     <li>- 영문(알파벳 A–Z, a–z) 으로 작성해야 합니다.</li>
                     <li>- 숫자(0~9)는 영문과 함께 사용 가능합니다.</li>
                     <li>- 띄어쓰기 및 특수문자는 사용 불가능합니다.</li>
                     <li>- '폰트명 + ByGlym.ttf'로 생성됩니다.</li>
-                </ul>
+                </S.FontInfoForm.Ul>
             </S.FontInfoForm.GuideBox>
 
             <S.FontInfoForm.GuideBox>
                 <S.FontInfoForm.GuideTitle>저작권 안내</S.FontInfoForm.GuideTitle>
-                <ul style={{listStyleType: "none"}}>
+                <S.FontInfoForm.Ul>
                     <li>- 사용자가 저작권을 소유합니다.</li>
                     <li>- 단, 제작에 사용된 요소(예: 기존 글꼴, 이미지, 코드 등)에 타인의 저작물이 포함된 경우, 그에 대한 저작권 침해 책임은 제작자 본인에게 있습니다.</li>
                     <li>- 배포시 폰트명에 'ByGlym'이 포함되어야 합니다.</li>
-                </ul>
+                </S.FontInfoForm.Ul>
             </S.FontInfoForm.GuideBox>
 
             <S.FontInfoForm.GuideBox>
                 <S.FontInfoForm.GuideTitle>상업적 이용 안내</S.FontInfoForm.GuideTitle>
-                <ul style={{listStyleType: "none"}}>
+                <S.FontInfoForm.Ul>
                     <li>- 제작한 폰트는 라이센스에 맞게 상업적 목적으로 이용할 수 있습니다.</li>
-                </ul>
+                </S.FontInfoForm.Ul>
             </S.FontInfoForm.GuideBox>
         </S.FontInfoForm.Container>
     );
