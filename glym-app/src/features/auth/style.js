@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { font } from "../../styles/font";
 import { lighten, darken } from 'polished';
 
+// AuthForm Style
 const AuthFormContainer = styled.div`
     width: 584px;
     height: 700px;
@@ -245,5 +246,25 @@ export const S = {
         AuthUtilityButton,
         AuthUtilityButtonContainer,
         KakaoLogo: AuthFormKakaoLogo
+    },
+
+    SignUp: {
+        Container: SignUpContainer,
+        InputContainer: SignUpInputContainer,
+        Button: SignUpButton,
+        Label: P,
+        TermsBox,
+        TermsWrap,
+        TermRow,
+        TermButton
+    },
+
+    InputRow: {
+        Container,
+        Label: P,
+        RequiredMark: Span,
+        Input,
+        ErrorMessage,
+        Button,
     }
 };
