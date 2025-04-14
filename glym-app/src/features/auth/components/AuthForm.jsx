@@ -1,29 +1,53 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { S } from '../style';
 import logo from "../../../shared/GLYM_LOGO.png"
 import kakaoLogo from "../../../shared/KAKAO_LOGO.png"
 import { useNavigate } from "react-router-dom";
+import { post } from "../../../utils/apis";
+import { URLS } from "../../../constants/urls";
+import { ErrorModal } from "../../../shared/components/ErrorModal";
 
 export default function AuthForm() {
+    const [showFail, setShowFail] = useState(false);
     const navigate = useNavigate();
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
 
         const form = e.target;
         const formData = new FormData(form);
 
-        console.log([...formData.entries()]);
+        const body = {
+            email: formData.get("email"),
+            password: formData.get("password"),
+        }
+
+        const response = await post({
+            baseUrl: URLS.BASE.TEST,
+            endpoint: URLS.ENDPOINT.LOGIN,
+            data: body,
+        });
+
+        if (response.ok) {
+            console.log(`${response.status}: ${JSON.stringify(response.data)}`);
+            sessionStorage.setItem('accessToken', response.AccessToken);
+            navigate("/");
+        } else {
+            setShowFail(true);
+            console.warn(`오류 상태 코드: ${response.status}`);
+        }
     }
 
     return (
         <>
+            {showFail && <ErrorModal title="아이디 및 비밀번호를 확인해주세요." subTitle="회원정보가 일치하지 않습니다." onClose={() => setShowFail(false)} />}
+
             <S.Auth.Container>
                 <img src={logo} alt="glym_logo" style={{ width: "150px", margin: "30px 0 60px 0" }}></img>
 
                 <form onSubmit={handleSubmit} >
                     <S.Auth.Input
-                        name="username"
+                        name="email"
                         type="email"
                         placeholder="이메일"
                         required
