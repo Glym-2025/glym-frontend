@@ -52,3 +52,11 @@ export const validatePhone = (phone) => {
 
   return '';
 };
+
+export const validateCode = (code) => {
+  const { REQUIRED } = ERROR_MESSAGE.CODE;
+
+  if (!code) return REQUIRED;
+
+  return '';
+};
