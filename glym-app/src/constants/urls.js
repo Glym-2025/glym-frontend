@@ -6,6 +6,8 @@ export const URLS = {
   ENDPOINT: {
     SIGN_UP: "/signup",
     CHECK_EMAIL: "/signup/check-email",
+    SEND_EMAIL: "/auth/send-email",
+    VERIFY_EMAIL: "/auth/verify-email",
     LOGIN: "/auth/login",
   },
 };
