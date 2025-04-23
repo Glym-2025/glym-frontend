@@ -9,5 +9,7 @@ export const URLS = {
     SEND_EMAIL: "/auth/send-email",
     VERIFY_EMAIL: "/auth/verify-email",
     LOGIN: "/auth/login",
+    LOGOUT: "/auth/logout",
+    REFRESH_TOKEN: "/auth/refresh",
   },
 };
