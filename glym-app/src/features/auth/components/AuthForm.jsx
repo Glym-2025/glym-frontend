@@ -3,7 +3,7 @@ import { S } from '../style';
 import logo from "../../../shared/GLYM_LOGO.png"
 import kakaoLogo from "../../../shared/KAKAO_LOGO.png"
 import { useNavigate } from "react-router-dom";
-import { post } from "../../../utils/apis";
+import { post } from "../../../utils/requests";
 import { URLS } from "../../../constants/urls";
 import { ErrorModal } from "../../../shared/components/ErrorModal";
 

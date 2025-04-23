@@ -3,7 +3,7 @@ import SignUpEmailInput from "./SignUpEmailInput";
 import CustomDatePicker from "./CustomDatePicker";
 import { S } from "../style";
 import { useState, useEffect } from "react";
-import { post, get } from "../../../utils/apis";
+import { post, get } from "../../../utils/requests";
 import { URLS } from "../../../constants/urls";
 import { validateEmail, validateName, validatePassword, validatePasswordConfirm, validatePhone, validateCode } from "../../../utils/validators";
 import { ErrorModal } from "../../../shared/components/ErrorModal";
