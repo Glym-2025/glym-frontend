@@ -24,10 +24,15 @@ export const PHONE_MESSAGES = {
   LENGTH: "휴대폰 번호 10~11자리를 정확히 입력해주세요.",
 };
 
+export const CODE = {
+  REQUIRED: "인증번호를 입력해주세요."
+};
+
 export const ERROR_MESSAGE = {
   EMAIL_MESSAGES,
   PASSWORD_MESSAGES,
   PASSWORD_CONFIRM_MESSAGES,
   NAME_MESSAGES,
-  PHONE_MESSAGES
+  PHONE_MESSAGES,
+  CODE
 };

@@ -1,15 +1,18 @@
 import SignUpInput from "./SignUpInput";
+import SignUpEmailInput from "./SignUpEmailInput";
 import CustomDatePicker from "./CustomDatePicker";
 import { S } from "../style";
 import { useState, useEffect } from "react";
 import { post, get } from "../../../utils/apis";
 import { URLS } from "../../../constants/urls";
-import { validateEmail, validateName, validatePassword, validatePasswordConfirm, validatePhone } from "../../../utils/validators";
+import { validateEmail, validateName, validatePassword, validatePasswordConfirm, validatePhone, validateCode } from "../../../utils/validators";
 import { ErrorModal } from "../../../shared/components/ErrorModal";
+import LoadingSpinner from "../../../shared/components/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUpForm() {
     const [id, setId] = useState('');
+    const [code, setCode] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [username, setUsername] = useState('');
@@ -17,10 +20,12 @@ export default function SignUpForm() {
     const [birth, setBirth] = useState(null);
     const [domain, setDomain] = useState('gmail.com');
 
+    const [isLoading, setIsLoading] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [Modalcontext, setModalContext] = useState({ title: "", subTitle: "" });
 
     const [duplicateChecked, setDuplicateChecked] = useState(false);
+    const [codeChecked, setCodeChecked] = useState(false);
 
     const [allChecked, setAllChecked] = useState(false);
     const [termsChecked, setTermsChecked] = useState(false);
@@ -49,7 +54,26 @@ export default function SignUpForm() {
         setAllChecked(termsChecked && privacyChecked && ageChecked);
     };
 
-    async function handleCheckDuplicate(e) {
+    async function sendEmailCode(email) {
+        const response = await post({
+            baseUrl: URLS.BASE.TEST,
+            endpoint: URLS.ENDPOINT.SEND_EMAIL,
+            data: { to: email }
+        })
+
+        if (response.ok) {
+            console.log(response.data);
+        }
+        else {
+            console.log({ response }, "api 연결 실패");
+
+            setModalContext({ title: "인증코드가 올바르지 않습니다.", subTitle: "인증코드를 다시 확인해주세요." });
+            setShowFail(true);
+        }
+    }
+
+    async function handleVerifyEmail(e) {
+        setIsLoading(true);
         const isEmailValid = id && validateEmail(`${id}@${domain}`) === '';
 
         if (!isEmailValid) {
@@ -57,6 +81,7 @@ export default function SignUpForm() {
             setShowFail(true)
             return;
         }
+
         const response = await get({
             baseUrl: URLS.BASE.TEST,
             endpoint: URLS.ENDPOINT.CHECK_EMAIL,
@@ -66,7 +91,9 @@ export default function SignUpForm() {
         if (response.ok) {
             console.log(response.data);
 
-            setModalContext({ title: "사용 가능한 이메일입니다.", subTitle: "" });
+            await sendEmailCode(response.data.data);
+
+            setModalContext({ title: "해당 메일로 인증코드를 전송하였습니다.", subTitle: `${id}@${domain}` });
             setShowFail(true);
             setDuplicateChecked(true);
         }
@@ -76,10 +103,37 @@ export default function SignUpForm() {
             setModalContext({ title: "이미 회원가입된 이메일입니다.", subTitle: "가입된 이메일로 로그인하시거나 다른 이메일을 사용해주세요." });
             setShowFail(true);
         }
+        setIsLoading(false);
+    }
+
+    async function handleCheckCode() {
+        const response = await post({
+            baseUrl: URLS.BASE.TEST,
+            endpoint: URLS.ENDPOINT.VERIFY_EMAIL,
+            data: {
+                email : `${id}@${domain}`,
+                code
+            }
+        })
+
+        if (response.ok) {
+            console.log(response.data);
+            
+            setModalContext({ title: "인증되었습니다.", subTitle: "" });
+            setShowFail(true);
+            setCodeChecked(true);
+        }
+        else {
+            console.log({ response }, "api 연결 실패");
+
+            setModalContext({ title: "인증코드가 올바르지 않습니다.", subTitle: "인증코드를 다시 확인해주세요." });
+            setShowFail(true);
+        }
     }
 
     async function handleButtonClick(e) {
         const isEmailValid = id && validateEmail(`${id}@${domain}`) === '';
+        const isCodeValid = code && validateCode(code) === '';
         const isPasswordValid = password && validatePassword(password) === '';
         const isPasswordConfirmValid = passwordConfirm && validatePasswordConfirm(password, passwordConfirm) === '';
         const isNameValid = username && validateName(username) === '';
@@ -89,14 +143,20 @@ export default function SignUpForm() {
         const isPrivacyAgreed = privacyChecked;
         const isAgeAgreed = ageChecked;
 
-        if (!isEmailValid || !isPasswordValid || !isPasswordConfirmValid || !isNameValid || !isPhoneValid) {
+        if (!isEmailValid || !isCodeValid || !isPasswordValid || !isPasswordConfirmValid || !isNameValid || !isPhoneValid) {
             setModalContext({ title: "입력창을 확인해주세요.", subTitle: "입력값이 비었거나, 형식에 맞지 않습니다." });
             setShowFail(true);
             return;
         }
 
-        if ( !duplicateChecked ) {
-            setModalContext({ title: "이메일 중복 확인을 완료해주세요.", subTitle: "" });
+        if (!duplicateChecked) {
+            setModalContext({ title: "이메일 인증을 완료해주세요.", subTitle: "" });
+            setShowFail(true);
+            return;
+        }
+
+        if (!codeChecked) {
+            setModalContext({ title: "인증코드가 유효하지 않습니다.", subTitle: "이메일로 전송된 인증코드를 입력해주세요." });
             setShowFail(true);
             return;
         }
@@ -112,8 +172,8 @@ export default function SignUpForm() {
             password,
             username,
             phone,
-          };
-          
+        };
+
         const response = await post({
             baseUrl: URLS.BASE.TEST,
             endpoint: URLS.ENDPOINT.SIGN_UP,
@@ -133,6 +193,7 @@ export default function SignUpForm() {
         <>
             <S.SignUp.Container>
                 {showFail && <ErrorModal title={Modalcontext.title} subTitle={Modalcontext.subTitle} onClose={() => setShowFail(false)} />}
+                {isLoading && <LoadingSpinner />}
 
                 <p style={{ fontSize: "30px", fontWeight: "400", marginBottom: "42px" }}>회원가입</p>
                 <p style={{ textAlign: "right", marginRight: "40px", color: "#6B6B6B" }}><span style={{ color: "#FF3F77" }}>*</span>필수입력사항</p>
@@ -140,16 +201,25 @@ export default function SignUpForm() {
                 <hr style={{ width: "500px", margin: "0 auto", marginBottom: "30px", backgroundColor: "#929292" }} />
 
                 <S.SignUp.InputContainer>
-                    <SignUpInput
+                    <SignUpEmailInput
                         value="이메일"
                         type="email"
-                        onChange={(e) => {setId(e.target.value); setDuplicateChecked(false);}}
+                        onChange={(e) => { setId(e.target.value); setDuplicateChecked(false); }}
                         showCheckButton="true"
-                        buttonValue="중복확인"
-                        isDisabled={duplicateChecked}
-                        onCheck={handleCheckDuplicate}
-                        onDomainChange={(e) => {setDomain(e.target.options[e.target.selectedIndex].text); console.log(id+'@'+domain); setDuplicateChecked(false);}}
-                        error={validateEmail(id+'@'+domain)}
+                        buttonValue="인증번호 요청"
+                        onCheck={handleVerifyEmail}
+                        onDomainChange={(e) => { setDomain(e.target.options[e.target.selectedIndex].text); console.log(id + '@' + domain); setDuplicateChecked(false); }}
+                        error={validateEmail(id + '@' + domain)}
+                    />
+                    <SignUpInput
+                        value="인증코드"
+                        type="text"
+                        onChange={(e) => { setCode(e.target.value); setCodeChecked(false); }}
+                        showCheckButton="true"
+                        buttonValue="확인"
+                        isDisabled={!duplicateChecked || codeChecked}
+                        onCheck={handleCheckCode}
+                        error={validateCode(code)}
                     />
                     <SignUpInput
                         value="비밀번호"
