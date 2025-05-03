@@ -3,13 +3,13 @@ import { S } from '../style';
 import logo from "../../../shared/GLYM_LOGO.png"
 import kakaoLogo from "../../../shared/KAKAO_LOGO.png"
 import { useNavigate } from "react-router-dom";
-import { post } from "../../../utils/requests";
-import { URLS } from "../../../constants/urls";
+import useAuthStore from '../../../stores/authStore';
 import { ErrorModal } from "../../../shared/components/ErrorModal";
 
 export default function AuthForm() {
     const [showFail, setShowFail] = useState(false);
     const navigate = useNavigate();
+    const { login } = useAuthStore();
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -17,24 +17,15 @@ export default function AuthForm() {
         const form = e.target;
         const formData = new FormData(form);
 
-        const body = {
-            email: formData.get("email"),
-            password: formData.get("password"),
-        }
+        const email = formData.get("email");
+        const password = formData.get("password");
 
-        const response = await post({
-            baseUrl: URLS.BASE.TEST,
-            endpoint: URLS.ENDPOINT.LOGIN,
-            data: body,
-        });
+        const success = await login(email, password);
 
-        if (response.ok) {
-            console.log(`${response.status}: ${JSON.stringify(response.data)}`);
-            sessionStorage.setItem('accessToken', response.AccessToken);
+        if (success) {
             navigate("/");
         } else {
             setShowFail(true);
-            console.warn(`오류 상태 코드: ${response.status}`);
         }
     }
 

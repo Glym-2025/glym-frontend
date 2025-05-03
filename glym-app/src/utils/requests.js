@@ -8,7 +8,8 @@ function createFetchOptions(method, headers, data, endpoint) {
         method,
         headers,
         ...(data ? { body: JSON.stringify(data) } : {}),
-        ...(needsCookie(endpoint) ? { credentials: "include" } : {}),
+        credentials: "include",
+        withCredentials: true,
     };
 }
 
@@ -17,12 +18,18 @@ export async function post({ postHeaders = {}, baseUrl, endpoint, data, useAuth 
     const headers = getHeaders(postHeaders, useAuth);
     const options = createFetchOptions("POST", headers, data, endpoint);
 
+    console.log(options);
+
     return fetch(url, options)
         .then(async (res) => {
+            console.log(res);
+
             if (res.status === 401 && useAuth) {
                 return handle401AndRetry(post, { postHeaders, baseUrl, endpoint, data, useAuth });
             }
-            const responseData = await res.json();
+            const isJson = res.headers.get("content-type")?.includes("application/json");
+            const responseData = isJson ? await res.json() : null;
+
             const AccessToken =
                 endpoint === URLS.ENDPOINT.LOGIN
                     ? res.headers.get("authorization") || responseData.accessToken || null
@@ -49,7 +56,9 @@ export async function get({ postHeaders = {}, baseUrl, endpoint, params = {}, us
             if (res.status === 401 && useAuth) {
                 return handle401AndRetry(get, { postHeaders, baseUrl, endpoint, params, useAuth });
             }
-            const responseData = await res.json();
+            const isJson = res.headers.get("content-type")?.includes("application/json");
+            const responseData = isJson ? await res.json() : null;
+
             return {
                 status: res.status,
                 ok: res.ok,
@@ -68,7 +77,9 @@ export async function put({ postHeaders = {}, baseUrl, endpoint, data, useAuth =
             if (res.status === 401 && useAuth) {
                 return handle401AndRetry(put, { postHeaders, baseUrl, endpoint, data, useAuth });
             }
-            const responseData = await res.json();
+            const isJson = res.headers.get("content-type")?.includes("application/json");
+            const responseData = isJson ? await res.json() : null;
+
             return {
                 status: res.status,
                 ok: res.ok,
@@ -89,7 +100,9 @@ export async function del({ postHeaders = {}, baseUrl, endpoint, params = {}, us
             if (res.status === 401 && useAuth) {
                 return handle401AndRetry(del, { postHeaders, baseUrl, endpoint, params, useAuth });
             }
-            const responseData = await res.json();
+            const isJson = res.headers.get("content-type")?.includes("application/json");
+            const responseData = isJson ? await res.json() : null;
+
             return {
                 status: res.status,
                 ok: res.ok,

@@ -6,7 +6,7 @@ const baseHeaders = {
 
 // ==================== 헤더 생성 ====================
 export function getHeaders(customHeaders = {}, useAuth = false) {
-    const token = localStorage.getItem("accessToken");
+    const token = sessionStorage.getItem("accessToken");
 
     if (useAuth && token && isTokenExpired(token)) {
         return baseHeaders;
@@ -14,7 +14,7 @@ export function getHeaders(customHeaders = {}, useAuth = false) {
 
     return {
         ...baseHeaders,
-        ...(token && useAuth && { Authorization: `Bearer ${token}` }),
+        ...(token && useAuth && { authorization: `${token}` }),
         ...customHeaders,
     };
 }
