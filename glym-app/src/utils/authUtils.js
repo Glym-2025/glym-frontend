@@ -20,7 +20,7 @@ export async function refreshAccessToken() {
 
     if (res.ok) {
         const data = await res.json();
-        localStorage.setItem("accessToken", data.accessToken);
+        sessionStorage.setItem("accessToken", data.accessToken);
         return data.accessToken;
     } else {
         return null;
@@ -33,7 +33,7 @@ export async function handle401AndRetry(requestFn, args) {
         return requestFn(args);
     } else {
         alert("세션이 만료되었습니다. 다시 로그인해주세요.");
-        localStorage.clear();
+        sessionStorage.clear();
         window.location.href = "/login";
     }
 }
