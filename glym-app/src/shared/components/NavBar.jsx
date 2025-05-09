@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../GLYM_LOGO.png";
 import { font } from "../../styles/font"
-import useAuthStore from '../../stores/authStore';
 
 const Nav = styled.nav`
     width: 100%;
@@ -46,8 +45,6 @@ const S = {
 };
 
 export default function NavBar() {
-    const { isLoggedIn, logout } = useAuthStore();
-
     return (
         <>
             <S.Nav>
@@ -56,14 +53,7 @@ export default function NavBar() {
                 <S.Menu to="/">폰트제작</S.Menu>
                 <S.Menu to="/">이용내역</S.Menu>
                 <S.Menu to="/">마이페이지</S.Menu>
-                {isLoggedIn ? ( 
-                    <S.Menu onClick={logout}>로그아웃</S.Menu>
-                ) : (
-                    <>
-                        <S.Menu to="/login">로그인</S.Menu>
-                        <S.Menu to="/signup">회원가입</S.Menu>
-                    </>
-                )}
+                <S.Menu to="/">로그인</S.Menu>
             </S.Nav>
         </>
     );
