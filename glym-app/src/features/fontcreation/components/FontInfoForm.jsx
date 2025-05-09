@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ErrorModal } from "../../../shared/components/ErrorModal";
 import { S } from "../style";
 
-export default function FontInfoForm() {
+export default function FontInfoForm({ onFontNameChange }) {
     const [fontName, setFontName] = useState("");
     const [fontNameCheck, setFontNameCheck] = useState(false);
     const [fontNameCheckResult, setFontNameCheckResult] = useState("");
@@ -18,6 +18,8 @@ export default function FontInfoForm() {
 
         // 서버에서 폰트명 검사할 예정
         setFontNameCheck(true);
+        setFontNameCheckResult("success");
+        onFontNameChange(fontName);
     };
     return (
         <S.FontInfoForm.Container>
@@ -25,7 +27,15 @@ export default function FontInfoForm() {
             <div style={{ padding: "30px" }}>
                 <p style={{ marginBottom: "15px", color: "#222222" }}>폰트명</p>
                 <S.FontInfoForm.InputBox>
-                    <S.FontInfoForm.Input type="text" value={fontName} onChange={(e) => { setFontName(e.target.value); setFontNameCheck(false); }} />
+                    <S.FontInfoForm.Input
+                        type="text"
+                        value={fontName}
+                        onChange={(e) => {
+                            const newFontName = e.target.value;
+                            setFontName(newFontName);
+                            setFontNameCheck(false);
+                        }}
+                    />
                     <S.FontInfoForm.CheckButton color={fontName === "" ? "#929292" : "#F43C71"} onClick={handleFontNameCheck} disabled={fontName === "" || fontNameCheck}>확인</S.FontInfoForm.CheckButton>
                 </S.FontInfoForm.InputBox>
                 <p style={{ marginLeft: "10px", fontSize: "12px", color: "#F43C71" }}>

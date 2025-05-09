@@ -3,7 +3,7 @@ import { S } from "../style";
 import fileLogo from "../../../shared/FILE_LOGO.png";
 import { ErrorModal } from "../../../shared/components/ErrorModal";
 
-export default function ImageUploadForm() {
+export default function ImageUploadForm({ onImageUpload }) {
     const [file, setFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [isDragOver, setIsDragOver] = useState(false);
@@ -16,11 +16,13 @@ export default function ImageUploadForm() {
         }
 
         // 서버에서 이미지 검사할 예정
-
         setFile(selectedFile);
 
         const url = URL.createObjectURL(selectedFile);
         setPreviewUrl(url);
+
+        // 부모 컴포넌트로 이미지 데이터 전달
+        onImageUpload(selectedFile);
     };
 
     const handleDragOver = (e) => {
@@ -38,7 +40,7 @@ export default function ImageUploadForm() {
         }
 
         // 서버에서 이미지 검사할 예정
-        
+
         // 파일 형식 png 인지 검사
         if (selectedFile && selectedFile.type === "image/png" && selectedFile.name.endsWith(".png")) {
             const url = URL.createObjectURL(selectedFile);
@@ -54,6 +56,9 @@ export default function ImageUploadForm() {
 
         const url = URL.createObjectURL(selectedFile);
         setPreviewUrl(url);
+
+        // 부모 컴포넌트로 이미지 데이터 전달
+        onImageUpload(selectedFile);
     };
 
     const handleDragLeave = () => {
