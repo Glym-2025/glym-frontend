@@ -3,6 +3,7 @@ import Preview from '../Preview';
 import NavBar from '../shared/components/NavBar';
 import SignUpPage from '../pages/SignUpPage';
 import SignInPage from '../pages/SignInPage';
+import FontCreationPage from '../pages/FontCreationPage';
 
 export default function AppRouter() {
   return (
@@ -12,6 +13,7 @@ export default function AppRouter() {
         <Route path="/" element={<Preview />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<SignInPage />} />
+        <Route path="/fontcreation" element={<FontCreationPage />} />
       </Routes>
     </>
   );
