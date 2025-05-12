@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ImageUploadForm, FontInfoForm } from "../features/fontcreation";
 import { ErrorModal } from "../shared/components/ErrorModal";
+import { LoadingModal } from "../shared/components/LoadingModal";
 import { S } from "./style";
 
 export default function FontCreationPage() {
@@ -8,6 +9,7 @@ export default function FontCreationPage() {
     const [modalTitle, setModalTitle] = useState('');
     const [imageData, setImageData] = useState(null);
     const [fontName, setFontName] = useState('');
+    const [loadingModal, setLoadingModal] = useState(false);
 
     const handleImageUpload = (image) => {
         setImageData(image);
@@ -33,10 +35,13 @@ export default function FontCreationPage() {
         // 서버로 데이터 전송 로직 추가
         console.log('Image Data:', imageData);
         console.log('Font Name:', fontName);
+
+        setLoadingModal(true);
     };
 
     return (
         <>
+            {loadingModal && <LoadingModal title="AI가 폰트 생성중" subTitle="폰트를 생성 중입니다... 잠시만 기다려주세요."/>}
             {errorModal && <ErrorModal title={modalTitle} onClose={() => setErrorModal(false)} />}
             <div style={{ paddingTop: "100px", display: "flex", justifyContent: "center", gap: "30px" }}>
                 <ImageUploadForm onImageUpload={handleImageUpload} />
