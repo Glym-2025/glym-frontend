@@ -1,14 +1,23 @@
+import TTFLogo from "../../../shared/TTFLogo.png";
+import { S } from "../style";
+
 export default function FontListItem() {
     return (
-        <div>
-            <div>ttf</div>
-            <div>
-                <div>
-                    <h1>LeeBaekByGlym 폰트</h1>
-                    <p>2025년 3월 25일</p>
-                </div>
-                <p>이미지</p>
-            </div>
-        </div>
+        <S.FontListItem.FontItemContainer>
+            <S.FontListItem.DownloadButton>
+                <img src={TTFLogo} />
+            </S.FontListItem.DownloadButton>
+
+            <S.FontListItem.FontBox>
+                <S.FontListItem.FontInfoBox>
+                    <S.FontListItem.FontTitle>LeeBaekByGlym 폰트</S.FontListItem.FontTitle>
+                    <S.FontListItem.FontDate>2025년 3월 25일</S.FontListItem.FontDate>
+                </S.FontListItem.FontInfoBox>
+
+                <S.FontListItem.FontPreviewBox>
+                    GLYM delivers your dreams, one letter at a time.
+                </S.FontListItem.FontPreviewBox>
+            </S.FontListItem.FontBox>
+        </S.FontListItem.FontItemContainer>
     );
 }
