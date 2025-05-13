@@ -1,7 +1,7 @@
 export const URLS = {
   BASE: {
     MAIN: "",
-    TEST: "https://glymfont.store",
+    TEST: "https://www.glymfont.store",
   },
   ENDPOINT: {
     SIGN_UP: "/api/signup",
