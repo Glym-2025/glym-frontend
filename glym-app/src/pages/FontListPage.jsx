@@ -1,19 +1,43 @@
 import FontListItem from "../features/fontcreation/components/FontListItem";
+import React, { useState, useEffect } from "react";
 import { S } from "./style";
 
 export default function FontListPage() {
+    const [selectedIds, setSelectedIds] = useState([]);
+    const [fontList, setFontList] = useState([
+        { id: 1, name: "LeeBaekByGlym 폰트" },
+        { id: 2, name: "ShapeByGlym 폰트" },
+        { id: 3, name: "nahyunKooByGlym 폰트" },
+        { id: 4, name: "parkFeByGlym 폰트" },
+        { id: 5, name: "폰트5" },
+        { id: 6, name: "폰트6" },
+        { id: 7, name: "폰트7" },
+
+    ]); // 화면 렌더링할 때 폰트 목록 불러오는 api 호출 해야함.
+
+    useEffect(() => {
+        console.log("선택된 id(업데이트 후):", selectedIds);
+      }, [selectedIds]);
+
+    const handleSelect = (id) => {
+        setSelectedIds((prev) =>
+            prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+        );
+    };
+
     return (
         <S.FontListPage.Container>
             <S.FontListPage.Title>서비스 이용 내역</S.FontListPage.Title>
             <hr style={{ width: '850px', margin: 'auto', marginBottom: '30px' }} />
             <S.FontListPage.FontListBox>
-                <FontListItem />
-                <FontListItem />
-                <FontListItem />
-                <FontListItem />
-                <FontListItem />
-                <FontListItem />
-                <FontListItem />
+                {fontList.map((item) => (
+                    <FontListItem
+                        key={item.id}
+                        name={item.name}
+                        selected={selectedIds.includes(item.id)}
+                        onClick={() => handleSelect(item.id)}
+                    />
+                ))}
             </S.FontListPage.FontListBox>
             <hr style={{ width: '850px', margin: 'auto', marginBottom: '30px' }} />
             <S.FontListPage.ButtonGuideBox>

@@ -156,8 +156,9 @@ const FontItemContainer = styled.div`
     display: flex;
     padding: 40px;
 
-    border: 1px solid #D9D9D9;
+    border: ${({ selected }) => (selected ? "1px solid #FF3F77" : "1px solid #d9d9d9")};
     border-radius: 10px;
+    cursor: pointer;
 `;
 
 const DownloadButton = styled.button`
