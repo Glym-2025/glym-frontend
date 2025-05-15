@@ -1,21 +1,24 @@
-import { useState } from "react";
 import TTFLogo from "../../../shared/TTFLogo.png";
 import { S } from "../style";
 
-export default function FontListItem({ className }) {
+export default function FontListItem({ className, name, onClick, selected }) {
     const handleFontDownload = () => {
         console.log("폰트 다운로드");
     };
 
     return (
-        <S.FontListItem.FontItemContainer className={className}>
-            <S.FontListItem.DownloadButton onClick={handleFontDownload}>
-                <img src={TTFLogo} />
+        <S.FontListItem.FontItemContainer
+            className={className}
+            selected={selected}
+            onClick={onClick}
+        >
+            <S.FontListItem.DownloadButton onClick={e => { e.stopPropagation(); handleFontDownload(); }}>
+                <img src={TTFLogo} alt="다운로드" />
             </S.FontListItem.DownloadButton>
 
             <S.FontListItem.FontBox>
                 <S.FontListItem.FontInfoBox>
-                    <S.FontListItem.FontTitle>LeeBaekByGlym 폰트</S.FontListItem.FontTitle>
+                    <S.FontListItem.FontTitle>{name || "_ByGlym 폰트"}</S.FontListItem.FontTitle>
                     <S.FontListItem.FontDate>2025년 3월 25일</S.FontListItem.FontDate>
                 </S.FontListItem.FontInfoBox>
 
