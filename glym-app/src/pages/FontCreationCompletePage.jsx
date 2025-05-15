@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { S } from "./style";
 import { useNavigate } from "react-router-dom";
-import FontListItem from '../features/fontcreation/components/FontListItem';
 import ReactQuill from 'react-quill-new';
 import 'quill/dist/quill.snow.css';
 
 export default function FontCreationCompletePage() {
     const [value, setValue] = useState('');
     const navigate = useNavigate();
-    
+
     const handlePageChange = () => {
         navigate("/fontcreation");
     };
@@ -20,7 +19,7 @@ export default function FontCreationCompletePage() {
                 <S.FontCreationCompletePage.SubTitle>자동으로 다운로드가 시작됩니다.</S.FontCreationCompletePage.SubTitle>
             </S.FontCreationCompletePage.TitleBox>
             <S.FontCreationCompletePage.FontBox>
-                <FontListItem />
+                <S.FontCreationCompletePage.CustomFontListItem />
                 <S.FontCreationCompletePage.NewFontButton onClick={handlePageChange}>새로운 폰트 생성하러 가기</S.FontCreationCompletePage.NewFontButton>
             </S.FontCreationCompletePage.FontBox>
             <ReactQuill

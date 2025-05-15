@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { font } from "../styles/font";
 import { darken } from "polished";
-import FontCreationCompletePage from "./FontCreationCompletePage";
+import FontListItem from '../features/fontcreation/components/FontListItem';
 
 const CreationButton = styled.button`
     width: 380px;
@@ -66,6 +66,10 @@ const NewFontButton = styled.button`
     background-color: transparent;
 `;
 
+const CustomFontListItem = styled(FontListItem)`
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+`;
+
 export const S = {
     FontCreationPage: {
         Button: CreationButton
@@ -76,6 +80,7 @@ export const S = {
         Title,
         SubTitle,
         FontBox,
-        NewFontButton
+        NewFontButton,
+        CustomFontListItem,
     }
 }
