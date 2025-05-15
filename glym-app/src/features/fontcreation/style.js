@@ -150,6 +150,60 @@ const Ul = styled.ul`
     color: #929292;
 `;
 
+// FontListItem
+const FontItemContainer = styled.div`
+    width: fit-content;
+    display: flex;
+    padding: 40px;
+
+    border: ${({ selected }) => (selected ? "1px solid #FF3F77" : "1px solid #d9d9d9")};
+    border-radius: 10px;
+    cursor: pointer;
+`;
+
+const DownloadButton = styled.button`
+    width: 100px;
+    height: 100px;
+
+    margin-top: auto;
+
+    border-radius: 10px;
+    border: 1px solid #D9D9D9;
+    background-color: #FF3F77;
+`;
+
+const FontBox = styled.div`
+    padding-left: 30px;
+`;
+
+const FontInfoBox = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+const FontTitle = styled.h1`
+    ${font(28, 600, 1.5)}
+`;
+
+const FontDate = styled.p`
+    margin-top: auto;
+    ${font(16, 400, 1.5)}
+`;
+
+const FontPreviewBox = styled.div`
+    min-width: 600px;
+    width: fit-content;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    border-radius: 10px;
+    border: 1px solid #D9D9D9;
+`;
+
 export const S = {
     ImageUploadForm: {
         Container: ImageUploadFormContainer,
@@ -166,5 +220,14 @@ export const S = {
         GuideBox: FontGuideBox,
         GuideTitle: GuideTitle,
         Ul
-    }
+    },
+    FontListItem: {
+        FontItemContainer,
+        DownloadButton,
+        FontBox,
+        FontDate,
+        FontInfoBox,
+        FontTitle,
+        FontPreviewBox
+    },
 }
