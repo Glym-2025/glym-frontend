@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
+import { S } from "./style";
+import { useNavigate } from "react-router-dom";
 import FontListItem from '../features/fontcreation/components/FontListItem';
 
 export default function FontCreationCompletePage() {
+    const navigate = useNavigate();
+
+    const handlePageChange = () => {
+        navigate("/fontcreation");
+    };
+
     return (
-        <>
-            <div>
-                <h1>✨나만의 폰트가 완성되었어요!✨</h1>
-                <p>자동으로 다운로드가 시작됩니다.</p>
-            </div>
-            <div>
+        <S.FontCreationCompletePage.Container>
+            <S.FontCreationCompletePage.TitleBox>
+                <S.FontCreationCompletePage.Title>✨나만의 폰트가 완성되었어요!✨</S.FontCreationCompletePage.Title>
+                <S.FontCreationCompletePage.SubTitle>자동으로 다운로드가 시작됩니다.</S.FontCreationCompletePage.SubTitle>
+            </S.FontCreationCompletePage.TitleBox>
+            <S.FontCreationCompletePage.FontBox>
                 <FontListItem />
-                <p>새로운 폰트 생성하러 가기</p>
-            </div>
-        </>
+                <S.FontCreationCompletePage.NewFontButton onClick={handlePageChange}>새로운 폰트 생성하러 가기</S.FontCreationCompletePage.NewFontButton>
+            </S.FontCreationCompletePage.FontBox>
+        </S.FontCreationCompletePage.Container>
     );
 }
