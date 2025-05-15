@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { S } from "./style";
 import { useNavigate } from "react-router-dom";
 import FontListItem from '../features/fontcreation/components/FontListItem';
+import ReactQuill from 'react-quill-new';
+import 'quill/dist/quill.snow.css';
 
 export default function FontCreationCompletePage() {
+    const [value, setValue] = useState('');
     const navigate = useNavigate();
-
+    
     const handlePageChange = () => {
         navigate("/fontcreation");
     };
@@ -20,6 +23,12 @@ export default function FontCreationCompletePage() {
                 <FontListItem />
                 <S.FontCreationCompletePage.NewFontButton onClick={handlePageChange}>새로운 폰트 생성하러 가기</S.FontCreationCompletePage.NewFontButton>
             </S.FontCreationCompletePage.FontBox>
+            <ReactQuill
+                theme="snow"
+                value={value}
+                onChange={setValue}
+                style={{ width: '1000px', height: '400px', margin: 'auto', marginTop: '30px' }}
+            />
         </S.FontCreationCompletePage.Container>
     );
 }
