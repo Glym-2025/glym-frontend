@@ -3,13 +3,12 @@ import { ImageUploadForm, FontInfoForm } from "../features/fontcreation";
 import { ErrorModal } from "../shared/components/ErrorModal";
 import { LoadingModal } from "../shared/components/LoadingModal";
 import { S } from "./style";
+import { useFontUpload } from '../hooks/useFontUpload';
 
 export default function FontCreationPage() {
-    const [errorModal, setErrorModal] = useState(false);
-    const [modalTitle, setModalTitle] = useState('');
+    const { uploadFont, errorModal, modalTitle, loadingModal, setErrorModal, setModalTitle } = useFontUpload();
     const [imageData, setImageData] = useState(null);
     const [fontName, setFontName] = useState('');
-    const [loadingModal, setLoadingModal] = useState(false);
 
     const handleImageUpload = (image) => {
         setImageData(image);
@@ -19,7 +18,7 @@ export default function FontCreationPage() {
         setFontName(name);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!imageData) {
             setErrorModal(true);
             setModalTitle("이미지를 추가해주세요.");
@@ -32,16 +31,12 @@ export default function FontCreationPage() {
             return;
         }
 
-        // 서버로 데이터 전송 로직 추가
-        console.log('Image Data:', imageData);
-        console.log('Font Name:', fontName);
-
-        setLoadingModal(true);
+        await uploadFont(imageData, fontName);
     };
 
     return (
         <>
-            {loadingModal && <LoadingModal title="AI가 폰트 생성중" subTitle="폰트를 생성 중입니다... 잠시만 기다려주세요."/>}
+            {loadingModal && <LoadingModal title="AI가 폰트 생성중" subTitle="폰트를 생성 중입니다... 잠시만 기다려주세요." />}
             {errorModal && <ErrorModal title={modalTitle} onClose={() => setErrorModal(false)} />}
             <div style={{ paddingTop: "100px", display: "flex", justifyContent: "center", gap: "30px" }}>
                 <ImageUploadForm onImageUpload={handleImageUpload} />
