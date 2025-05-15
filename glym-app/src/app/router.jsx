@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import Preview from '../Preview';
+import MainPage from '../pages/MainPage';
 import NavBar from '../shared/components/NavBar';
 import SignUpPage from '../pages/SignUpPage';
 import SignInPage from '../pages/SignInPage';
@@ -12,7 +12,7 @@ export default function AppRouter() {
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Preview />} />
+        <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<SignInPage />} />
         <Route path="/fontcreation" element={<FontCreationPage />} />
