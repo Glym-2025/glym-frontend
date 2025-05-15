@@ -3,6 +3,7 @@ import { S } from "./style";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from 'react-quill-new';
 import 'quill/dist/quill.snow.css';
+import fontImage from '../shared/FONT_RESULT.png'
 
 export default function FontCreationCompletePage() {
     const [value, setValue] = useState('');
@@ -19,14 +20,14 @@ export default function FontCreationCompletePage() {
                 <S.FontCreationCompletePage.SubTitle>자동으로 다운로드가 시작됩니다.</S.FontCreationCompletePage.SubTitle>
             </S.FontCreationCompletePage.TitleBox>
             <S.FontCreationCompletePage.FontBox>
-                <S.FontCreationCompletePage.CustomFontListItem />
+                <S.FontCreationCompletePage.FontResultImage src={fontImage}></S.FontCreationCompletePage.FontResultImage>
                 <S.FontCreationCompletePage.NewFontButton onClick={handlePageChange}>새로운 폰트 생성하러 가기</S.FontCreationCompletePage.NewFontButton>
             </S.FontCreationCompletePage.FontBox>
             <ReactQuill
                 theme="snow"
                 value={value}
                 onChange={setValue}
-                style={{ width: '1000px', height: '400px', margin: 'auto', marginTop: '30px' }}
+                style={{ width: '1000px', height: '200px', margin: 'auto', marginTop: '30px', background: '#FFFFFF' }}
             />
         </S.FontCreationCompletePage.Container>
     );

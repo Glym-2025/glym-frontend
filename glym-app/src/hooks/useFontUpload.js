@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { URLS } from '../constants/urls';
-import useAuthStore from '../stores/authStore';
+import { useNavigate } from "react-router-dom";
 
 export const useFontUpload = () => {
+    const navigate = useNavigate();
     const [errorModal, setErrorModal] = useState(false);
     const [modalTitle, setModalTitle] = useState('');
     const [loadingModal, setLoadingModal] = useState(false);
@@ -32,11 +33,13 @@ export const useFontUpload = () => {
 
             const data = await response.json();
             console.log('Upload success:', data);
+            navigate("/fontcreationcomplete"); // 지워야 함!!!!! 
             return data;
         } catch (error) {
             console.error('Upload error:', error);
-            setErrorModal(true);
-            setModalTitle(error.message);
+            navigate("/fontcreationcomplete"); // 지워야 함!!!!! 
+            // setErrorModal(true);
+            // setModalTitle(error.message);
             return null;
         } finally {
             setLoadingModal(false);

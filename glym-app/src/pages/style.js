@@ -1,7 +1,6 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { font } from "../styles/font";
 import { darken } from "polished";
-import FontListItem from '../features/fontcreation/components/FontListItem';
 
 const CreationButton = styled.button`
     width: 380px;
@@ -19,9 +18,25 @@ const CreationButton = styled.button`
     }
 `;
 
+const shine = keyframes`
+  0% {
+    box-shadow: 0 0 4px 0 #FF3F77, 0 0 0px 0 #fff;
+    border-color: #FF3F77;
+  }
+  50% {
+    box-shadow: 0 0 8px 4px #FFB4C3, 0 0 8px 2px #fff;
+    border-color: #FF3F77;
+  }
+  100% {
+    box-shadow: 0 0 4px 0 #FF3F77, 0 0 0px 0 #fff;
+    border-color: #FF3F77;
+  }
+`;
+
 const Container = styled.div`
     width: 100%;
     height: 100%;
+    margin: auto;
     margin-top: 100px;
 `;
 
@@ -54,7 +69,13 @@ const FontBox = styled.div`
     align-items: flex-end;
     margin: auto;
     margin-top: 40px;
+    margin-bottom: 50px;
     gap: 15px;
+`;
+
+const FontResultImage = styled.img`
+    width: 800px;
+    animation: ${shine} 1.5s infinite;
 `;
 
 const NewFontButton = styled.button`
@@ -64,10 +85,6 @@ const NewFontButton = styled.button`
     ${font(16, 400, 1.5)}
     color: #929292;
     background-color: transparent;
-`;
-
-const CustomFontListItem = styled(FontListItem)`
-    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
 `;
 
 export const S = {
@@ -81,6 +98,6 @@ export const S = {
         SubTitle,
         FontBox,
         NewFontButton,
-        CustomFontListItem,
+        FontResultImage,
     }
 }

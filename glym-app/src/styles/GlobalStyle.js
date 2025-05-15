@@ -11,6 +11,10 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-color: #F5F5F5;
   }
+  
+  .ql-container, .ql-editor {
+    background: #fff !important;
+  }
 `;
 
 export default GlobalStyle;
