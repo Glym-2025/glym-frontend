@@ -162,6 +162,20 @@ const DownloadButton = styled.button`
     
 `;
 
+// MainPage
+const Wrapper = styled.div`
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+`;
+
+const Section = styled.section`
+  height: 100vh;
+  padding: 100px;
+  scroll-snap-align: start;
+`;
+
 export const S = {
     FontCreationPage: {
         Button: CreationButton
@@ -183,5 +197,9 @@ export const S = {
         GuideText,
         DeleteButton,
         DownloadButton,
-    }
+    },
+    MainPage: {
+        Wrapper,
+        Section,
+    },
 }
