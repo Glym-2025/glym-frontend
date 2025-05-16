@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { font } from "../../styles/font";
+import ProcessStepsSection from "./components/ProcessStepsSection";
 
 // IntroSection
 const Container = styled.div`
@@ -84,6 +85,61 @@ const ExampleImg = styled.img`
     width: 750px;
 `;
 
+// ProcessStepsSection
+const StepContainer = styled.div`
+    max-width: 1920px;
+    width: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: auto;
+`;
+
+const Textbox = styled.div`
+    display: flex;
+    flex-direction: column;
+    
+    width: 100%;
+    @media (max-width: 1600px) {
+        width: 800px;
+        word-break: keep-all;
+    }
+    text-align: left;
+    margin-bottom: 100px;
+    gap: 20px;
+`;
+
+const StepTitle = styled.h1`
+    text-align: left;
+
+    ${font(50, 500, 1.2)}
+    @media (max-width: 1600px) {
+        ${font(40, 500, 1.2)}
+    }
+`;
+
+const SubTitle = styled.p`
+    ${font(25, 400, 1.2)}
+    color: #929292;
+`;
+
+const StepsBox = styled.div`
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    @media (max-width: 1600px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+`;
+
+const Step = styled.img`
+    width: 400px;
+`;
+
 export const S = {
     IntroSection: {
         Container,
@@ -99,5 +155,13 @@ export const S = {
         Example,
         FontName,
         ExampleImg,
+    },
+    ProcessStepsSection: {
+        Container: StepContainer,
+        Title: StepTitle,
+        Textbox,
+        SubTitle,
+        StepsBox,
+        Step,
     },
 };
