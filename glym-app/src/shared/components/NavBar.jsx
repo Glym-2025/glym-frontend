@@ -56,7 +56,6 @@ export default function NavBar() {
                 <S.Menu to="/">서비스 소개</S.Menu>
                 <S.Menu to="/fontcreation">폰트제작</S.Menu>
                 <S.Menu to="/fontlist">이용내역</S.Menu>
-                <S.Menu to="/">마이페이지</S.Menu>
                 {isLoggedIn ? ( 
                     <S.Menu onClick={logout}>로그아웃</S.Menu>
                 ) : (
