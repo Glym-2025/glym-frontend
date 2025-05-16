@@ -13,7 +13,8 @@ const Nav = styled.nav`
     align-items: center;
 
     padding: 0 40px;
-    background-color: #2E3A59;
+    border-bottom: 1px solid #dceaff;
+    background-color: #ffffff;
 `;
 
 const LogoBox = styled.div`
@@ -41,7 +42,7 @@ const Menu = styled(Link)`
     place-items: center;
 
     ${font(24, 600, 1.5)}
-    color: #F5F5F5;
+    color: #CACACA;
     text-decoration: none;
 
     &:hover {
