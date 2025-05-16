@@ -1,7 +1,9 @@
+import { IntroSection } from "../features/Intro";
+
 export default function MainPage() {
     return(
         <div>
-            메인페이지
+            <IntroSection />
         </div>
     );
 }
