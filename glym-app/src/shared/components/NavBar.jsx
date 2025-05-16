@@ -13,7 +13,8 @@ const Nav = styled.nav`
     align-items: center;
     gap: 30px;
 
-    background-color: #2E3A59;
+    border-bottom: 1px solid #dceaff;
+    background-color: #ffffff;
 `;
 
 const Logo = styled.img`
@@ -29,11 +30,11 @@ const Menu = styled(Link)`
     place-items: center;
 
     ${font(28, 600, 1.5)}
-    color: #F5F5F5;
+    color: #CACACA;
     text-decoration: none;
 
     &:hover {
-        background: linear-gradient(45deg, #F0F0F3, #FFB4C3);
+        background: linear-gradient(45deg, #FFFFFF, #FFB4C3);
 
         background-clip: text;            
         -webkit-background-clip: text;   

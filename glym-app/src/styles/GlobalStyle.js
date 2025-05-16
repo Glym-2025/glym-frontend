@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: #F5F5F5;
+    background-color:rgb(255, 255, 255);
   }
   
   .ql-container, .ql-editor {
