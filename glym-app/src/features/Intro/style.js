@@ -12,6 +12,10 @@ const Container = styled.div`
 
     justify-content: center;
     margin: auto;
+    margin-top: 120px;
+    @media (max-width: 1600px) {
+        margin-top: 100px;
+    }
     gap: 60px;
 `;
 
@@ -50,6 +54,7 @@ const ExampleContainer = styled.div`
     align-items: center;
 
     margin: auto;
+    margin-top: 100px;
     gap: 80px;
 `;
 
@@ -96,6 +101,7 @@ const StepContainer = styled.div`
     align-items: center;
 
     margin: auto;
+    margin-top: 100px;
 `;
 
 const Textbox = styled.div`

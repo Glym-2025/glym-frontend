@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { font } from "../styles/font";
 import { darken } from "polished";
+import glymBig from "../shared/GLYM_BIG.png"
 
 // FontCreationPage
 const CreationButton = styled.button`
@@ -164,16 +165,33 @@ const DownloadButton = styled.button`
 
 // MainPage
 const Wrapper = styled.div`
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+
+    background: 
+        url(${glymBig}),
+        linear-gradient(to bottom, #FFFFFF, #DCF0FF, #FFF3F6, #FFFFFF);
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
 `;
 
 const Section = styled.section`
-  height: 100vh;
-  padding: 100px;
-  scroll-snap-align: start;
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: flex-start;
+
+`;
+
+const Section3 = styled(Section)`
+    background-color: #ffffff;
 `;
 
 export const S = {
@@ -201,5 +219,6 @@ export const S = {
     MainPage: {
         Wrapper,
         Section,
+        Section3,
     },
 }

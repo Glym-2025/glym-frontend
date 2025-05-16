@@ -6,7 +6,7 @@ export default function MainPage() {
     const wrapperRef = useRef(null);
 
     useEffect(() => {
-        const scrollSteps = [1, 2, 0];
+        const scrollSteps = [2 , 0];
         let current = 0;
 
         const timer = setInterval(() => {
@@ -21,7 +21,7 @@ export default function MainPage() {
 
             current++;
             if (current >= scrollSteps.length) clearInterval(timer);
-        }, 1000);
+        }, 2000);
 
         return () => clearInterval(timer);
     }, []);
@@ -30,7 +30,7 @@ export default function MainPage() {
         <S.MainPage.Wrapper ref={wrapperRef}>
             <S.MainPage.Section><IntroSection /></S.MainPage.Section>
             <S.MainPage.Section><ExampleSection /></S.MainPage.Section>
-            <S.MainPage.Section><ProcessStepsSection /></S.MainPage.Section>
+            <S.MainPage.Section3><ProcessStepsSection /></S.MainPage.Section3>
         </S.MainPage.Wrapper>
     );
 }
