@@ -51,7 +51,7 @@ export async function get({ baseUrl, endpoint, data = {}, withToken = false, wit
 
     const headers = {
         "Content-Type": "application/json",
-        ...(withToken && token ? { authorization: `Bearer ${token}` } : {}),
+        ...(withToken && token ? { authorization: `${token}` } : {}),
     };
 
     const options = {
@@ -82,7 +82,7 @@ export async function put({ baseUrl, endpoint, data, withToken = false, withCred
 
     const headers = {
         "Content-Type": "application/json",
-        ...(withToken && token ? { authorization: `Bearer ${token}` } : {}),
+        ...(withToken && token ? { authorization: `${token}` } : {}),
     };
 
     const options = {
@@ -115,7 +115,7 @@ export async function del({ baseUrl, endpoint, data = {}, withToken = false, wit
 
     const headers = {
         "Content-Type": "application/json",
-        ...(withToken && token ? { authorization: `Bearer ${token}` } : {}),
+        ...(withToken && token ? { authorization: `${token}` } : {}),
     };
 
     const options = {

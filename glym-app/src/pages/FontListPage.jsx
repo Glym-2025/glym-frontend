@@ -22,12 +22,9 @@ export default function FontListPage() {
         async function fetchFontList() {
             try {
                 const response = await get({
-                    postHeaders: {}, // 필요 시 여기에 추가 헤더
                     baseUrl: URLS.BASE.TEST,
                     endpoint: URLS.ENDPOINT.FONT_LIST,
-                    data: {},
-                    params: {}, // 필요시 쿼리 파라미터
-                    useAuth: true, // <== 이게 핵심!
+                    withToken: true,
                 });
 
                 if (response.ok) {
