@@ -24,7 +24,7 @@ export const useFontUpload = () => {
                 body: formData,
                 credentials: 'include',
                 headers: {
-                    'Authorization': `${token}`
+                    'authorization': `${token}`
                 }
             });
 
