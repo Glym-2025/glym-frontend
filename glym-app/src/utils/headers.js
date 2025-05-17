@@ -14,7 +14,7 @@ export function getHeaders(customHeaders = {}, useAuth = false) {
 
     return {
         ...baseHeaders,
-        ...(token && useAuth && { authorization: `${token}` }),
+        ...(token && useAuth && { authorization: `Bearer ${token}` }),
         ...customHeaders,
     };
 }

@@ -6,34 +6,33 @@ export function isTokenExpired(token) {
         const payload = JSON.parse(atob(token.split(".")[1]));
         const now = Math.floor(Date.now() / 1000);
         return payload.exp < now;
-    } catch (e) {
-        return true;
+    } catch {
+        return true; // 잘못된 토큰이거나 디코딩 실패 시 만료된 것으로 간주
     }
 }
 
 // ==================== Access Token 갱신 ====================
 export async function refreshAccessToken() {
-    const res = await fetch(URLS.ENDPOINT.REFRESH_TOKEN, {
-        method: "POST",
-        credentials: "include",
-    });
+    try {
+        const res = await fetch(URLS.ENDPOINT.REFRESH_TOKEN, {
+            method: "POST",
+            credentials: "include", // refreshToken은 보통 쿠키로 전송됨
+        });
 
-    if (res.ok) {
-        const data = await res.json();
-        sessionStorage.setItem("accessToken", data.accessToken);
-        return data.accessToken;
-    } else {
+        if (!res.ok) return null;
+
+        const isJson = res.headers.get("content-type")?.includes("application/json");
+        const data = isJson ? await res.json() : null;
+
+        const newToken = data?.accessToken;
+        if (newToken) {
+            sessionStorage.setItem("accessToken", newToken);
+            return newToken;
+        }
+
         return null;
-    }
-}
-// ==================== 401 에러 처리 및 재시도 ====================
-export async function handle401AndRetry(requestFn, args) {
-    const newToken = await refreshAccessToken();
-    if (newToken) {
-        return requestFn(args);
-    } else {
-        alert("세션이 만료되었습니다. 다시 로그인해주세요.");
-        sessionStorage.clear();
-        window.location.href = "/login";
+    } catch (error) {
+        console.error("토큰 갱신 실패:", error);
+        return null;
     }
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { URLS } from '../constants/urls';
 import { useNavigate } from "react-router-dom";
+import { post } from '../utils/requests';
 
 export const useFontUpload = () => {
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ export const useFontUpload = () => {
                 body: formData,
                 credentials: 'include',
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `${token}`
                 }
             });
 
