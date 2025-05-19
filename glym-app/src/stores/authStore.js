@@ -10,8 +10,8 @@ const useAuthStore = create((set) => ({
             baseUrl: URLS.BASE.TEST,
             endpoint: URLS.ENDPOINT.LOGIN,
             data: { email, password },
-            withToken: false,         // 로그인 시 토큰 없음
-            withCredentials: false,   // 쿠키도 필요 없음
+            withToken: false,   
+            withCredentials: true,  
         });
 
         if (response.ok && response.AccessToken) {
