@@ -20,6 +20,7 @@ export async function post({ baseUrl, endpoint, data, withToken = false, withCre
         headers,
         body: JSON.stringify(data),
         credentials: withCredentials ? "include" : "omit",
+        withCredentials: withCredentials ? true : false,
     };
 
     const res = await fetch(url, options);

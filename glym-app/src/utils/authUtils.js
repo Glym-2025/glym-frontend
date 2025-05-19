@@ -14,13 +14,10 @@ export function isTokenExpired(token) {
 // ==================== Access Token 갱신 ====================
 export async function refreshAccessToken() {
     try {
-        const currentToken = sessionStorage.getItem("accessToken"); // 현재 액세스 토큰 가져오기
         const res = await fetch(URLS.ENDPOINT.REFRESH_TOKEN, {
             method: "POST",
-            headers: { // 헤더 추가
-                'authorization': `${currentToken}`
-            },
-            credentials: "include", // refreshToken은 보통 쿠키로 전송됨
+            credentials: "include",
+            withCredentials: true
         });
 
         if (!res.ok) return null;
