@@ -15,5 +15,6 @@ export const URLS = {
     FONT_LIST: "/api/font/fonts",
     FONT_DOWN: "/api/font/fonts/download",
     FONT_DEL: "/api/font/fonts/delete",
+    FONT_STATUS: "/api/font/{jobId}/status" // 폰트 생성 상태 스트리밍
   },
 };

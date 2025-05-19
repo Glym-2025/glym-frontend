@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { S } from "./style";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ReactQuill from 'react-quill-new';
 import 'quill/dist/quill.snow.css';
 import fontImage from '../shared/FONT_RESULT.png'
@@ -8,10 +8,46 @@ import fontImage from '../shared/FONT_RESULT.png'
 export default function FontCreationCompletePage() {
     const [value, setValue] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
+    const { fontUrl, fontName } = location.state || {};
+    const [downloadError, setDownloadError] = useState(null);
 
     const handlePageChange = () => {
         navigate("/fontcreation");
     };
+
+    useEffect(() => {
+        const downloadFont = async () => {
+            if (fontUrl && fontName) {
+                try {
+                    console.log(`Starting download for font: ${fontName} from ${fontUrl}`);
+                    const response = await fetch(fontUrl);
+                    
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch font: ${response.statusText}`);
+                    }
+
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${fontName}.ttf`; // 또는 적절한 파일 확장자
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    setDownloadError(null); // 다운로드 성공 시 에러 초기화
+                    console.log("Font download successful.");
+                } catch (error) {
+                    console.error("Font download error:", error);
+                    setDownloadError("폰트 다운로드에 실패했습니다.");
+                }
+            }
+        };
+
+        downloadFont();
+
+    }, [fontUrl, fontName]);
 
     return (
         <S.FontCreationCompletePage.Container>
