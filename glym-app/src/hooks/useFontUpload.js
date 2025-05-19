@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { URLS } from '../constants/urls';
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom"; // useNavigate 제거
+import { post } from '../utils/requests';
 
 export const useFontUpload = () => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate(); // useNavigate 제거
     const [errorModal, setErrorModal] = useState(false);
     const [modalTitle, setModalTitle] = useState('');
     const [loadingModal, setLoadingModal] = useState(false);
@@ -23,7 +24,7 @@ export const useFontUpload = () => {
                 body: formData,
                 credentials: 'include',
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    'authorization': `${token}`
                 }
             });
 
@@ -33,16 +34,16 @@ export const useFontUpload = () => {
 
             const data = await response.json();
             console.log('Upload success:', data);
-            navigate("/fontcreationcomplete"); // 지워야 함!!!!! 
-            return data;
+            return data; // 응답 데이터 반환
         } catch (error) {
             console.error('Upload error:', error);
-            navigate("/fontcreationcomplete"); // 지워야 함!!!!! 
+            // navigate("/fontcreationcomplete"); // 지워야 함!!!!!
             // setErrorModal(true);
             // setModalTitle(error.message);
+            setLoadingModal(false); // 에러 발생 시 로딩 종료
             return null;
         } finally {
-            setLoadingModal(false);
+            // 여기서 loadingModal을 닫지 않고, 상태 스트리밍 완료 후 닫도록 변경
         }
     };
 
@@ -52,6 +53,7 @@ export const useFontUpload = () => {
         modalTitle,
         loadingModal,
         setErrorModal,
-        setModalTitle
+        setModalTitle,
+        setLoadingModal // FontCreationPage에서 로딩 상태를 제어할 수 있도록 추가
     };
 };

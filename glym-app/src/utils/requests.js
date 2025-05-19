@@ -1,112 +1,136 @@
-import { getHeaders } from "./headers";
-import { handle401AndRetry } from "./authUtils";
-import { needsCookie } from "./cookieUtils";
 import { URLS } from "../constants/urls";
+import { isTokenExpired, refreshAccessToken } from "../utils/authUtils";
 
-function createFetchOptions(method, headers, data, endpoint) {
-    return {
-        method,
+// ==================== POST ====================
+export async function post({ baseUrl, endpoint, data, withToken = false, withCredentials = false }) {
+    const url = baseUrl + endpoint;
+    let token = sessionStorage.getItem("accessToken");
+
+    if (withToken && (!token || isTokenExpired(token))) {
+        token = await refreshAccessToken();
+    }
+
+    const headers = {
+        "Content-Type": "application/json",
+        ...(withToken && token ? { authorization: `${token}` } : {}),
+    };
+
+    const options = {
+        method: "POST",
         headers,
-        ...(data ? { body: JSON.stringify(data) } : {}),
-        credentials: "include",
-        withCredentials: true,
+        body: JSON.stringify(data),
+        credentials: withCredentials ? "include" : "omit",
+    };
+
+    const res = await fetch(url, options);
+    const isJson = res.headers.get("content-type")?.includes("application/json");
+    const responseData = isJson ? await res.json() : null;
+
+    const AccessToken =
+        endpoint === URLS.ENDPOINT.LOGIN
+            ? res.headers.get("authorization") || responseData?.accessToken || null
+            : null;
+
+    return {
+        status: res.status,
+        ok: res.ok,
+        data: responseData,
+        AccessToken,
     };
 }
 
-export async function post({ postHeaders = {}, baseUrl, endpoint, data, useAuth = false }) {
-    const url = baseUrl + endpoint;
-    const headers = getHeaders(postHeaders, useAuth);
-    const options = createFetchOptions("POST", headers, data, endpoint);
+// ==================== GET ====================
+export async function get({ baseUrl, endpoint, data = {}, withToken = false, withCredentials = false }) {
+    const query = new URLSearchParams(data).toString();
+    const url = baseUrl + endpoint + (query ? `?${query}` : "");
+    let token = sessionStorage.getItem("accessToken");
 
-    console.log(options);
+    if (withToken && (!token || isTokenExpired(token))) {
+        token = await refreshAccessToken();
+    }
 
-    return fetch(url, options)
-        .then(async (res) => {
-            console.log(res);
+    const headers = {
+        "Content-Type": "application/json",
+        ...(withToken && token ? { authorization: `${token}` } : {}),
+    };
 
-            if (res.status === 401 && useAuth) {
-                return handle401AndRetry(post, { postHeaders, baseUrl, endpoint, data, useAuth });
-            }
-            const isJson = res.headers.get("content-type")?.includes("application/json");
-            const responseData = isJson ? await res.json() : null;
+    const options = {
+        method: "GET",
+        headers,
+        credentials: withCredentials ? "include" : "omit",
+    };
 
-            const AccessToken =
-                endpoint === URLS.ENDPOINT.LOGIN
-                    ? res.headers.get("authorization") || responseData.accessToken || null
-                    : null;
+    const res = await fetch(url, options);
+    const isJson = res.headers.get("content-type")?.includes("application/json");
+    const responseData = isJson ? await res.json() : null;
 
-            return {
-                status: res.status,
-                ok: res.ok,
-                data: responseData,
-                AccessToken,
-            };
-        });
+    return {
+        status: res.status,
+        ok: res.ok,
+        data: responseData,
+    };
 }
 
-export async function get({ postHeaders = {}, baseUrl, endpoint, params = {}, useAuth = false }) {
-    const query = new URLSearchParams(params).toString();
+// ==================== PUT ====================
+export async function put({ baseUrl, endpoint, data, withToken = false, withCredentials = false }) {
     const url = baseUrl + endpoint;
-    const fullUrl = query ? `${url}?${query}` : url;
-    const headers = getHeaders(postHeaders, useAuth);
-    const options = createFetchOptions("GET", headers, null, endpoint);
+    let token = sessionStorage.getItem("accessToken");
 
-    return fetch(fullUrl, options)
-        .then(async (res) => {
-            if (res.status === 401 && useAuth) {
-                return handle401AndRetry(get, { postHeaders, baseUrl, endpoint, params, useAuth });
-            }
-            const isJson = res.headers.get("content-type")?.includes("application/json");
-            const responseData = isJson ? await res.json() : null;
+    if (withToken && (!token || isTokenExpired(token))) {
+        token = await refreshAccessToken();
+    }
 
-            return {
-                status: res.status,
-                ok: res.ok,
-                data: responseData,
-            };
-        });
+    const headers = {
+        "Content-Type": "application/json",
+        ...(withToken && token ? { authorization: `${token}` } : {}),
+    };
+
+    const options = {
+        method: "PUT",
+        headers,
+        body: JSON.stringify(data),
+        credentials: withCredentials ? "include" : "omit",
+    };
+
+    const res = await fetch(url, options);
+    const isJson = res.headers.get("content-type")?.includes("application/json");
+    const responseData = isJson ? await res.json() : null;
+
+    return {
+        status: res.status,
+        ok: res.ok,
+        data: responseData,
+    };
 }
 
-export async function put({ postHeaders = {}, baseUrl, endpoint, data, useAuth = false }) {
-    const url = baseUrl + endpoint;
-    const headers = getHeaders(postHeaders, useAuth);
-    const options = createFetchOptions("PUT", headers, data, endpoint);
+// ==================== DELETE ====================
+export async function del({ baseUrl, endpoint, data = {}, withToken = false, withCredentials = false }) {
+    const query = new URLSearchParams(data).toString();
+    const url = baseUrl + endpoint + (query ? `?${query}` : "");
+    let token = sessionStorage.getItem("accessToken");
 
-    return fetch(url, options)
-        .then(async (res) => {
-            if (res.status === 401 && useAuth) {
-                return handle401AndRetry(put, { postHeaders, baseUrl, endpoint, data, useAuth });
-            }
-            const isJson = res.headers.get("content-type")?.includes("application/json");
-            const responseData = isJson ? await res.json() : null;
+    if (withToken && (!token || isTokenExpired(token))) {
+        token = await refreshAccessToken();
+    }
 
-            return {
-                status: res.status,
-                ok: res.ok,
-                data: responseData,
-            };
-        });
-}
+    const headers = {
+        "Content-Type": "application/json",
+        ...(withToken && token ? { authorization: `${token}` } : {}),
+    };
 
-export async function del({ postHeaders = {}, baseUrl, endpoint, params = {}, useAuth = false }) {
-    const query = new URLSearchParams(params).toString();
-    const url = baseUrl + endpoint;
-    const fullUrl = query ? `${url}?${query}` : url;
-    const headers = getHeaders(postHeaders, useAuth);
-    const options = createFetchOptions("DELETE", headers, null, endpoint);
+    const options = {
+        method: "DELETE",
+        headers,
+        credentials: withCredentials ? "include" : "omit",
+    };
 
-    return fetch(fullUrl, options)
-        .then(async (res) => {
-            if (res.status === 401 && useAuth) {
-                return handle401AndRetry(del, { postHeaders, baseUrl, endpoint, params, useAuth });
-            }
-            const isJson = res.headers.get("content-type")?.includes("application/json");
-            const responseData = isJson ? await res.json() : null;
+    const res = await fetch(url, options);
+    const isJson = res.headers.get("content-type")?.includes("application/json");
+    const responseData = isJson ? await res.json() : null;
 
-            return {
-                status: res.status,
-                ok: res.ok,
-                data: responseData,
-            };
-        });
+    return {
+        status: res.status,
+        ok: res.ok,
+        data: responseData,
+    };
 }

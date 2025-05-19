@@ -85,7 +85,7 @@ export default function SignUpForm() {
         const response = await get({
             baseUrl: URLS.BASE.TEST,
             endpoint: URLS.ENDPOINT.CHECK_EMAIL,
-            params: { email: `${id}@${domain}` }
+            data: { email: `${id}@${domain}` }
         })
 
         if (response.ok) {
