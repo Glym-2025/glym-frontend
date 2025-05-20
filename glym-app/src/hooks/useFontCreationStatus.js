@@ -1,21 +1,30 @@
+// hooks/useFontCreationStatus.js
 import { useState, useEffect } from 'react';
+import { EventSourcePolyfill } from 'event-source-polyfill';
 import { URLS } from '../constants/urls';
 
-export const useFontCreationStatus = (jobId) => {
+export const useFontCreationStatus = (jobId, token) => {
     const [status, setStatus] = useState('IDLE');
     const [fontUrl, setFontUrl] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        if (!jobId) {
+        if (!jobId || !token) {
             setStatus('IDLE');
             setFontUrl(null);
             setError(null);
             return;
         }
 
-        // jobld를 사용하여 SSE 연결 설정
-        const eventSource = new EventSource(`${URLS.BASE.TEST}${URLS.ENDPOINT.FONT_STATUS.replace('{jobId}', jobId)}`);
+        const url = `${URLS.BASE.TEST}${URLS.ENDPOINT.FONT_STATUS.replace('{jobId}', jobId)}`;
+
+        const eventSource = new EventSourcePolyfill(url, {
+            headers: {
+                authorization: `${token}`,
+            },
+            heartbeatTimeout: 60000, // optional: 서버에서 ping을 안 보내도 연결 유지
+            withCredentials: false,
+        });
 
         eventSource.onmessage = (event) => {
             try {
@@ -24,10 +33,10 @@ export const useFontCreationStatus = (jobId) => {
 
                 if (data.status === 'COMPLETED') {
                     setFontUrl(data.fontUrl);
-                    eventSource.close(); // 작업 완료 시 연결 종료
+                    eventSource.close();
                 } else if (data.status === 'FAILED') {
                     setError(data.errorMessage);
-                    eventSource.close(); // 작업 실패 시 연결 종료
+                    eventSource.close();
                 }
             } catch (e) {
                 setError("스트리밍 데이터 처리 중 오류가 발생했습니다.");
@@ -42,12 +51,10 @@ export const useFontCreationStatus = (jobId) => {
             eventSource.close();
         };
 
-        // 컴포넌트 언마운트 시 연결 종료
         return () => {
             eventSource.close();
         };
-
-    }, [jobId]); // jobId가 변경될 때마다 훅 다시 실행
+    }, [jobId, token]);
 
     return { status, fontUrl, error };
-}; 
+};

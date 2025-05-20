@@ -8,6 +8,7 @@ import { useFontCreationStatus } from '../hooks/useFontCreationStatus';
 import { useNavigate } from "react-router-dom";
 
 export default function FontCreationPage() {
+    const token = sessionStorage.getItem('accessToken');
     const navigate = useNavigate();
     const { uploadFont, loadingModal: uploadLoading, errorModal: uploadErrorModal, modalTitle: uploadModalTitle, setErrorModal: setUploadErrorModal, setModalTitle: setUploadModalTitle, setLoadingModal: setUploadLoading } = useFontUpload();
     
@@ -15,7 +16,7 @@ export default function FontCreationPage() {
     const [fontName, setFontName] = useState('');
     const [jobId, setJobId] = useState(null);
 
-    const { status: creationStatus, fontUrl, error: creationError } = useFontCreationStatus(jobId);
+    const { status: creationStatus, fontUrl, error: creationError } = useFontCreationStatus(jobId, token);
 
     useEffect(() => {
         if (creationStatus === 'COMPLETED') {
