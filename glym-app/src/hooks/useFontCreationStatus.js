@@ -28,12 +28,14 @@ export const useFontCreationStatus = (jobId, token) => {
 
         eventSource.onmessage = (event) => {
             try {
+                console.log(event.data);
                 const rawData = JSON.parse(event.data);
 
                 // 중첩 구조 해제
                 const data = rawData.data;
 
                 setStatus(data.status);
+                console.log(event.status);
 
                 if (data.status === 'COMPLETED') {
                     setFontUrl(data.fontUrl);
