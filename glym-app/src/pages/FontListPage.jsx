@@ -22,8 +22,7 @@ export default function FontListPage() {
 
     const handleDownload = async () => {
         try {
-            const selectedFonts = fontList.filter(font => selectedIds.includes(font.id));
-            await downloadFont(selectedFonts);
+            await downloadFont(selectedIds);
         } catch (error) {
             setDownloadError(error.message || "폰트 다운로드 중 오류가 발생했습니다.");
         }

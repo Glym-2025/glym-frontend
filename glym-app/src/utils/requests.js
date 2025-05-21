@@ -104,8 +104,8 @@ export async function put({ baseUrl, endpoint, data, withToken = false, withCred
 }
 
 // ==================== DELETE ====================
-export async function del({ baseUrl, endpoint, data = {}, withToken = false, withCredentials = false }) {
-    const query = new URLSearchParams(data).toString();
+export async function del({ baseUrl, endpoint, params = {}, data = {}, withToken = false, withCredentials = false }) {
+    const query = new URLSearchParams(params).toString();
     const url = baseUrl + endpoint + (query ? `?${query}` : "");
     let token = sessionStorage.getItem("accessToken");
 
@@ -121,6 +121,7 @@ export async function del({ baseUrl, endpoint, data = {}, withToken = false, wit
     const options = {
         method: "DELETE",
         headers,
+        body: JSON.stringify(data),
         credentials: withCredentials ? "include" : "omit",
     };
 
