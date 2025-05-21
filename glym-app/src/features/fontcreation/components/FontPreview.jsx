@@ -30,8 +30,8 @@ const PreviewTitle = styled.h2`
   font-size: 1.5rem;
 `;
 
-export default function FontPreview() {
-  const { fontUrl, fontName, error, isLoading } = useFontLoader(25);
+export default function FontPreview({fontId}) {
+  const { fontUrl, fontName, error, isLoading } = useFontLoader(fontId);
 
   if (isLoading) {
     return (

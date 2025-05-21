@@ -2,7 +2,7 @@ import styled, { keyframes } from "styled-components";
 import { font } from "../styles/font";
 import { darken } from "polished";
 import glymBig from "../shared/GLYM_BIG.png"
-import { FontTestDiv } from "../features/fontcreation";
+import FontPreview from "../features/fontcreation/components/FontPreview";
 
 // FontCreationPage
 const CreationButton = styled.button`
@@ -37,7 +37,7 @@ const shine = keyframes`
   }
 `;
 
-const FontResult = styled(FontTestDiv)`
+const FontResult = styled(FontPreview)`
     width: 800px;
     animation: ${shine} 1.5s infinite;
 `;  

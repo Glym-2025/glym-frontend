@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { S } from "./style";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useCustomFont } from "../hooks/useCustomFont";
 
 export default function FontCreationCompletePage() {
     const [value, setValue] = useState('');
@@ -9,8 +8,6 @@ export default function FontCreationCompletePage() {
     const location = useLocation();
     const { fontId, fontUrl, fontName } = location.state || {};
     const [downloadError, setDownloadError] = useState(null);
-
-    useCustomFont(fontName.fontUrl);
 
     const handlePageChange = () => {
         navigate("/fontcreation");
@@ -47,7 +44,7 @@ export default function FontCreationCompletePage() {
                 <S.FontCreationCompletePage.SubTitle>자동으로 다운로드가 시작됩니다.</S.FontCreationCompletePage.SubTitle>
             </S.FontCreationCompletePage.TitleBox>
             <S.FontCreationCompletePage.FontBox>
-                <S.FontCreationCompletePage.FontResult fontName={fontName} fontUrl={fontUrl} />
+                <S.FontCreationCompletePage.FontResult fontId={fontId} />
                 <S.FontCreationCompletePage.NewFontButton onClick={handlePageChange}>새로운 폰트 생성하러 가기</S.FontCreationCompletePage.NewFontButton>
             </S.FontCreationCompletePage.FontBox>
         </S.FontCreationCompletePage.Container>

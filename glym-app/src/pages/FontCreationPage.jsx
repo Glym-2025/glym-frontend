@@ -21,7 +21,7 @@ export default function FontCreationPage() {
     useEffect(() => {
         if (creationStatus === 'COMPLETED') {
             setUploadLoading(false);
-            navigate("/fontcreationcomplete", { state: { fontId: fontId, fontUrl: fontUrl, fontName: fontName } });
+            navigate("/fontcreationcomplete", { state: { fontId: 25, fontUrl: fontUrl, fontName: fontName } });
         } else if (creationStatus === 'FAILED') {
             setUploadLoading(false);
             setUploadErrorModal(true);
