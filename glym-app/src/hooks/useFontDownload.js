@@ -24,7 +24,7 @@ export const useFontDownload = () => {
 
             const blob = await fetch(downloadInfo.downloadUrl, {
                 headers: {
-                    Authorization: `${token}`,
+                    authorization: `${token}`,
                 }
             }).then(res => {
                 if (!res.ok) {
