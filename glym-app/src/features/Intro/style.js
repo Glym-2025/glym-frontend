@@ -31,16 +31,14 @@ const VideoWithBenefitBox = styled.div`
 `;
 
 const Video = styled.div`
-    min-height: 500px;
+    min-height: 400px;
     width: 800px;
     flex: 1;
-    
-    background-color: black;
-
 `;
 
 const BenefitImg = styled.img`
     width: 800px;
+    padding-top: 50px;
 `;
 
 // ExampleSection
