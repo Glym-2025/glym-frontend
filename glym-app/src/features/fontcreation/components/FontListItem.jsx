@@ -1,7 +1,8 @@
 import TTFLogo from "../../../shared/TTFLogo.png";
 import { S } from "../style";
+import FontPreview from "./FontPreview";
 
-export default function FontListItem({ className, name, onClick, selected }) {
+export default function FontListItem({ className, name, createdAt, fontId, onClick, selected }) {
     const handleFontDownload = () => {
         console.log("폰트 다운로드");
     };
@@ -19,11 +20,11 @@ export default function FontListItem({ className, name, onClick, selected }) {
             <S.FontListItem.FontBox>
                 <S.FontListItem.FontInfoBox>
                     <S.FontListItem.FontTitle>{name || "_ByGlym 폰트"}</S.FontListItem.FontTitle>
-                    <S.FontListItem.FontDate>2025년 3월 25일</S.FontListItem.FontDate>
+                    <S.FontListItem.FontDate>{createdAt}</S.FontListItem.FontDate>
                 </S.FontListItem.FontInfoBox>
 
                 <S.FontListItem.FontPreviewBox>
-                    GLYM delivers your dreams, one letter at a time.
+                    <FontPreview fontId={fontId} content={<h1>AbcDefGHiJkLmnOpqrStuVwxYz</h1>}/>
                 </S.FontListItem.FontPreviewBox>
             </S.FontListItem.FontBox>
         </S.FontListItem.FontItemContainer>

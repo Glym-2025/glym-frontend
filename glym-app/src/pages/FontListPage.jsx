@@ -48,6 +48,8 @@ export default function FontListPage() {
                         <FontListItem
                             key={item.id}
                             name={item.fontName}
+                            createdAt={item.createdAt}
+                            fontId={item.id}
                             selected={selectedIds.includes(item.id)}
                             onClick={() => handleSelect(item.id)}
                         />

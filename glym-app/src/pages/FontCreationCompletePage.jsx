@@ -44,7 +44,15 @@ export default function FontCreationCompletePage() {
                 <S.FontCreationCompletePage.SubTitle>자동으로 다운로드가 시작됩니다.</S.FontCreationCompletePage.SubTitle>
             </S.FontCreationCompletePage.TitleBox>
             <S.FontCreationCompletePage.FontBox>
-                <S.FontCreationCompletePage.FontResult fontId={fontId} />
+                <S.FontCreationCompletePage.FontResult
+                    fontId={fontId}
+                    content={
+                        <div>
+                            <h1>ABCDEFGHIJKLMNOPQRSTUVWXYZ</h1>
+                            <h1>abcdefghijklmnopqrstuvwxyz</h1>
+                        </div>
+                    }
+                />
                 <S.FontCreationCompletePage.NewFontButton onClick={handlePageChange}>새로운 폰트 생성하러 가기</S.FontCreationCompletePage.NewFontButton>
             </S.FontCreationCompletePage.FontBox>
         </S.FontCreationCompletePage.Container>
