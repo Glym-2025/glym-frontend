@@ -5,12 +5,12 @@ import { URLS } from '../constants/urls';
 export const useFontDownload = () => {
     const [error, setError] = useState(null);
 
-    const downloadFont = async (fonts) => {
+    const downloadFont = async (fontIds) => {
         try {
             const response = await post({
                 baseUrl: URLS.BASE.TEST,
                 endpoint: URLS.ENDPOINT.FONT_DOWN,
-                data: { fontIds: fonts.map(font => font.id) },
+                data: { fontIds },
                 withToken: true,
                 withCredentials: false,
             });

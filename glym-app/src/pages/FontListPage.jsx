@@ -1,8 +1,5 @@
 import FontListItem from "../features/fontcreation/components/FontListItem";
-import React, { useState } from "react";
 import { S } from "./style";
-import { URLS } from "../constants/urls";
-import { del } from "../utils/requests";
 import { useFontList } from "../hooks/useFontList";
 import { useFontSelection } from "../hooks/useFontSelection";
 import { useFontDownload } from "../hooks/useFontDownload";
@@ -12,7 +9,7 @@ import { ErrorModal } from "../shared/components/ErrorModal";
 export default function FontListPage() {
     const { fontList, fetchFontList, error: listError, setError: setListError } = useFontList();
     const { selectedIds, handleSelect, clearSelection } = useFontSelection();
-    const { downloadMultipleFonts, error: downloadError, setError: setDownloadError } = useFontDownload();
+    const { downloadFont, error: downloadError, setError: setDownloadError } = useFontDownload();
     const { deleteFonts, error: deleteError, setError: setDeleteError } = useFontDelete();
 
     const handleDelete = async () => {
@@ -26,7 +23,7 @@ export default function FontListPage() {
     const handleDownload = async () => {
         try {
             const selectedFonts = fontList.filter(font => selectedIds.includes(font.id));
-            await downloadMultipleFonts(selectedFonts);
+            await downloadFont(selectedFonts);
         } catch (error) {
             setDownloadError(error.message || "폰트 다운로드 중 오류가 발생했습니다.");
         }
