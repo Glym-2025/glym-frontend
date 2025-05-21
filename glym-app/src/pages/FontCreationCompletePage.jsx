@@ -17,38 +17,26 @@ export default function FontCreationCompletePage() {
     };
 
     useEffect(() => {
-        const downloadFont = async () => {
-            if (fontUrl && fontName) {
-                try {
-                    console.log(`Starting download for font: ${fontName} from ${fontUrl}`);
+        if (fontUrl && fontName) {
+            try {
+                console.log(`🚀 자동 다운로드 시작: ${fontName} (${fontUrl})`);
 
-                    // 🔥 토큰 없이 바로 fetch
-                    const response = await fetch(fontUrl);
+                const a = document.createElement('a');
+                a.href = fontUrl;
+                a.download = `${fontName}.ttf`; // 확장자 필요 없으면 생략 가능
+                a.style.display = 'none';
 
-                    if (!response.ok) {
-                        throw new Error(`Failed to fetch font: ${response.statusText}`);
-                    }
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
 
-                    const blob = await response.blob();
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `${fontName}.ttf`; // 또는 적절한 확장자
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
-
-                    setDownloadError(null); // 에러 초기화
-                    console.log("Font download successful.");
-                } catch (error) {
-                    console.error("Font download error:", error);
-                    setDownloadError("폰트 다운로드에 실패했습니다.");
-                }
+                setDownloadError(null); // 에러 초기화
+                console.log("✅ 폰트 다운로드 성공!");
+            } catch (error) {
+                console.error("❌ 자동 다운로드 오류:", error);
+                setDownloadError("폰트 다운로드에 실패했습니다.");
             }
-        };
-
-        downloadFont();
+        }
     }, [fontUrl, fontName]);
 
     return (
