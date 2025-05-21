@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { font } from "../styles/font";
 import { darken } from "polished";
+import glymBig from "../shared/GLYM_BIG.png"
 import { FontTestDiv } from "../features/fontcreation";
 
 // FontCreationPage
@@ -163,6 +164,37 @@ const DownloadButton = styled.button`
     
 `;
 
+// MainPage
+const Wrapper = styled.div`
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+
+    background: 
+        url(${glymBig}),
+        linear-gradient(to bottom, #FFFFFF, #DCF0FF, #FFF3F6, #FFFFFF);
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+`;
+
+const Section = styled.section`
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: flex-start;
+
+`;
+
+const Section3 = styled(Section)`
+    background-color: #ffffff;
+`;
+
 export const S = {
     FontCreationPage: {
         Button: CreationButton
@@ -184,5 +216,10 @@ export const S = {
         GuideText,
         DeleteButton,
         DownloadButton,
-    }
+    },
+    MainPage: {
+        Wrapper,
+        Section,
+        Section3,
+    },
 }
