@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../GLYM_LOGO.png";
 import { font } from "../../styles/font"
@@ -26,8 +26,6 @@ const MenuBox = styled.div`
     display: flex;
     gap: 30px;
     align-items: center;
-
-    border-bottom: 1px solid #dceaff;
     background-color: #ffffff;
 `;
 
@@ -39,7 +37,6 @@ const Logo = styled.img`
 
 const Menu = styled(Link)`
     min-width: 120px;
-    height: 100px;
 
     display: grid;
     place-items: center;
@@ -65,6 +62,11 @@ const S = { Nav, LogoBox, MenuBox, Logo, Menu };
 
 export default function NavBar() {
     const { isLoggedIn, logout } = useAuthStore();
+    const navigate = useNavigate();
+    const  handleLogout = () => {
+        logout();
+        navigate('/');
+    }
 
     return (
         <>
@@ -81,7 +83,7 @@ export default function NavBar() {
                         <>
                             <S.Menu to="/fontcreation">폰트제작</S.Menu>
                             <S.Menu to="/fontlist">이용내역</S.Menu>
-                            <S.Menu as="div" onClick={logout}>로그아웃</S.Menu>
+                            <S.Menu as="div" onClick={handleLogout}>로그아웃</S.Menu>
                         </>
                     ) : (
                         <>
