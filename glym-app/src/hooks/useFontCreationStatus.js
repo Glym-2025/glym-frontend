@@ -28,7 +28,11 @@ export const useFontCreationStatus = (jobId, token) => {
 
         eventSource.onmessage = (event) => {
             try {
-                const data = JSON.parse(event.data);
+                const rawData = JSON.parse(event.data);
+
+                // 중첩 구조 해제
+                const data = rawData.data;
+
                 setStatus(data.status);
 
                 if (data.status === 'COMPLETED') {
