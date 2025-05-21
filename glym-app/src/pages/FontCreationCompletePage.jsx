@@ -21,8 +21,16 @@ export default function FontCreationCompletePage() {
             if (fontUrl && fontName) {
                 try {
                     console.log(`Starting download for font: ${fontName} from ${fontUrl}`);
-                    const response = await fetch(fontUrl);
-                    
+
+                    const token = sessionStorage.getItem("accessToken");
+                    const response = await fetch(fontUrl, {
+                        headers: token
+                            ? {
+                                authorization: `${token}`,
+                            }
+                            : {},
+                    });
+
                     if (!response.ok) {
                         throw new Error(`Failed to fetch font: ${response.statusText}`);
                     }
@@ -36,6 +44,7 @@ export default function FontCreationCompletePage() {
                     a.click();
                     window.URL.revokeObjectURL(url);
                     document.body.removeChild(a);
+
                     setDownloadError(null); // 다운로드 성공 시 에러 초기화
                     console.log("Font download successful.");
                 } catch (error) {
@@ -46,8 +55,8 @@ export default function FontCreationCompletePage() {
         };
 
         downloadFont();
-
     }, [fontUrl, fontName]);
+
 
     return (
         <S.FontCreationCompletePage.Container>

@@ -20,7 +20,19 @@ export const useFontDownload = () => {
             }
 
             const downloadInfo = response.data[0];
-            const blob = await fetch(downloadInfo.downloadUrl).then(res => res.blob());
+            const token = sessionStorage.getItem("accessToken");
+
+            const blob = await fetch(downloadInfo.downloadUrl, {
+                headers: {
+                    Authorization: `${token}`,
+                }
+            }).then(res => {
+                if (!res.ok) {
+                    throw new Error("파일을 가져오는 데 실패했습니다.");
+                }
+                return res.blob();
+            });
+
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
