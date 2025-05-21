@@ -16,12 +16,12 @@ export default function FontCreationPage() {
     const [fontName, setFontName] = useState('');
     const [jobId, setJobId] = useState(null);
 
-    const { status: creationStatus, fontUrl, error: creationError } = useFontCreationStatus(jobId, token);
+    const { status: creationStatus, fontId, fontUrl, error: creationError } = useFontCreationStatus(jobId, token);
 
     useEffect(() => {
         if (creationStatus === 'COMPLETED') {
             setUploadLoading(false);
-            navigate("/fontcreationcomplete", { state: { fontUrl: fontUrl, fontName: fontName } });
+            navigate("/fontcreationcomplete", { state: { fontId: fontId, fontUrl: fontUrl, fontName: fontName } });
         } else if (creationStatus === 'FAILED') {
             setUploadLoading(false);
             setUploadErrorModal(true);

@@ -7,12 +7,14 @@ import FontCreationPage from '../pages/FontCreationPage';
 import FontCreationCompletePage from '../pages/FontCreationCompletePage';
 import FontListPage from '../pages/FontListPage';
 import ProtectedRoute from '../shared/components/ProtectedRoute';
+import Preview from '../Preview';
 
 export default function AppRouter() {
   return (
     <>
       <NavBar />
       <Routes>
+        <Route path='/preview' element={<Preview />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<SignInPage />} />

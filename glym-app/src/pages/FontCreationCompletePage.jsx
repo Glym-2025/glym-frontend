@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { S } from "./style";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useCustomFont } from "../hooks/useCustomFont";
-import { FontTestDiv } from '../features/fontcreation';
 
 export default function FontCreationCompletePage() {
     const [value, setValue] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-    const { fontUrl, fontName } = location.state || {};
+    const { fontId, fontUrl, fontName } = location.state || {};
     const [downloadError, setDownloadError] = useState(null);
 
     useCustomFont(fontName.fontUrl);
@@ -18,6 +17,7 @@ export default function FontCreationCompletePage() {
     };
 
     useEffect(() => {
+
         if (fontUrl && fontName) {
             try {
                 console.log(`🚀 자동 다운로드 시작: ${fontName} (${fontUrl})`);

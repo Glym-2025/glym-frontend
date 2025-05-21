@@ -35,9 +35,11 @@ const GlobalFontFace = ({ fontName, fontUrl }) => {
 
 // ✅ 스타일 적용
 const FontContainer = styled.div`
+  width: fit-content;
   text-align: center;
   font-family: ${(props) => `'${props.$fontName}', sans-serif`} !important;
   padding: 40px;
+  margin: 0 auto;
   font-size: 24px;
   color: black;
 `;
@@ -48,7 +50,8 @@ export default function FontTestDiv({ fontName, fontUrl }) {
       <FontReset />
       <GlobalFontFace fontName={fontName} fontUrl={fontUrl} />
       <FontContainer $fontName={fontName}>
-        <h1>AbcdEfghIjklmnOpqrstUvwxYz</h1>
+        <h1>ABCDEFGHIJKLMNOPQRSTUVWXYZ</h1>
+        <h1>abcdefghijklmnopqrstuvwxyz</h1>
       </FontContainer>
     </>
   );

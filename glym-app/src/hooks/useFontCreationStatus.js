@@ -4,6 +4,7 @@ import { EventSourcePolyfill } from 'event-source-polyfill';
 import { URLS } from '../constants/urls';
 
 export const useFontCreationStatus = (jobId, token) => {
+    const [fontId, setFontId] = useState(null);
     const [status, setStatus] = useState('IDLE');
     const [fontUrl, setFontUrl] = useState(null);
     const [error, setError] = useState(null);
@@ -40,6 +41,7 @@ export const useFontCreationStatus = (jobId, token) => {
 
                 if (parsed.status === 'COMPLETED') {
                     setFontUrl(parsed.fontUrl);
+                    setFontId(parsed.fontId);
                     eventSource.close();
                 } else if (parsed.status === 'FAILED') {
                     setError(parsed.errorMessage || "폰트 생성 실패");
@@ -63,5 +65,5 @@ export const useFontCreationStatus = (jobId, token) => {
         };
     }, [jobId, token]);
 
-    return { status, fontUrl, error };
+    return { status, fontId, fontUrl, error };
 };
