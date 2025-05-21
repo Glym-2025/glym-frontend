@@ -5,7 +5,7 @@ import { useEffect } from 'react';
  * @param fontName 적용할 폰트 이름
  * @param fontUrl .ttf 폰트의 URL
  */
-const useCustomFont = (fontName, fontUrl) => {
+export const useCustomFont = (fontName, fontUrl) => {
     useEffect(() => {
         if (!fontName || !fontUrl) return;
 
@@ -29,5 +29,3 @@ const useCustomFont = (fontName, fontUrl) => {
         document.head.appendChild(style);
     }, [fontName, fontUrl]);
 };
-
-export default useCustomFont;
