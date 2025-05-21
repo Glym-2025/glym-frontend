@@ -11,7 +11,7 @@ export const useFontDownload = () => {
                 baseUrl: URLS.BASE.TEST,
                 endpoint: URLS.ENDPOINT.FONT_DOWN,
                 data: { fontIds },
-                withToken: true,
+                withToken: true, // 다운로드 URL 요청 시에는 토큰이 필요하다면 유지
                 withCredentials: false,
             });
 
@@ -19,14 +19,8 @@ export const useFontDownload = () => {
                 throw new Error("폰트 다운로드에 실패했습니다.");
             }
 
-            const token = sessionStorage.getItem("accessToken");
-
             for (const font of response.data) {
-                const res = await fetch(font.downloadUrl, {
-                    headers: token
-                        ? { authorization: `${token}` }
-                        : {},
-                });
+                const res = await fetch(font.downloadUrl);
 
                 if (!res.ok) {
                     throw new Error(`파일을 가져오는 데 실패했습니다: ${font.fontName}`);

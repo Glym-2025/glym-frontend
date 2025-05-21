@@ -22,14 +22,8 @@ export default function FontCreationCompletePage() {
                 try {
                     console.log(`Starting download for font: ${fontName} from ${fontUrl}`);
 
-                    const token = sessionStorage.getItem("accessToken");
-                    const response = await fetch(fontUrl, {
-                        headers: token
-                            ? {
-                                authorization: `${token}`,
-                            }
-                            : {},
-                    });
+                    // 🔥 토큰 없이 바로 fetch
+                    const response = await fetch(fontUrl);
 
                     if (!response.ok) {
                         throw new Error(`Failed to fetch font: ${response.statusText}`);
@@ -39,13 +33,13 @@ export default function FontCreationCompletePage() {
                     const url = window.URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = `${fontName}.ttf`; // 또는 적절한 파일 확장자
+                    a.download = `${fontName}.ttf`; // 또는 적절한 확장자
                     document.body.appendChild(a);
                     a.click();
                     window.URL.revokeObjectURL(url);
                     document.body.removeChild(a);
 
-                    setDownloadError(null); // 다운로드 성공 시 에러 초기화
+                    setDownloadError(null); // 에러 초기화
                     console.log("Font download successful.");
                 } catch (error) {
                     console.error("Font download error:", error);
@@ -56,7 +50,6 @@ export default function FontCreationCompletePage() {
 
         downloadFont();
     }, [fontUrl, fontName]);
-
 
     return (
         <S.FontCreationCompletePage.Container>
