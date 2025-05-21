@@ -11,7 +11,7 @@ const Nav = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    
     padding: 0 40px;
     border-bottom: 1px solid #dceaff;
     background-color: #ffffff;
@@ -26,6 +26,9 @@ const MenuBox = styled.div`
     display: flex;
     gap: 30px;
     align-items: center;
+
+    border-bottom: 1px solid #dceaff;
+    background-color: #ffffff;
 `;
 
 const Logo = styled.img`
@@ -42,6 +45,7 @@ const Menu = styled(Link)`
     place-items: center;
 
     ${font(24, 600, 1.5)}
+
     color: #CACACA;
     text-decoration: none;
 
@@ -49,6 +53,10 @@ const Menu = styled(Link)`
         background: linear-gradient(45deg, #F0F0F3, #FFB4C3);
         background-clip: text;
         -webkit-background-clip: text;
+        background: linear-gradient(45deg, #FFFFFF, #FFB4C3);
+
+        background-clip: text;            
+        -webkit-background-clip: text;   
         -webkit-text-fill-color: transparent;
     }
 `;

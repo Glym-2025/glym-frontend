@@ -6,6 +6,7 @@ import SignInPage from '../pages/SignInPage';
 import FontCreationPage from '../pages/FontCreationPage';
 import FontCreationCompletePage from '../pages/FontCreationCompletePage';
 import FontListPage from '../pages/FontListPage';
+import ProtectedRoute from '../shared/components/ProtectedRoute';
 
 export default function AppRouter() {
   return (
@@ -15,9 +16,30 @@ export default function AppRouter() {
         <Route path="/" element={<MainPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<SignInPage />} />
-        <Route path="/fontcreation" element={<FontCreationPage />} />
-        <Route path="/fontcreationcomplete" element={<FontCreationCompletePage />} />
-        <Route path="/fontlist" element={<FontListPage />} />
+        <Route 
+          path="/fontcreation" 
+          element={
+            <ProtectedRoute>
+              <FontCreationPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/fontcreationcomplete" 
+          element={
+            <ProtectedRoute>
+              <FontCreationCompletePage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/fontlist" 
+          element={
+            <ProtectedRoute>
+              <FontListPage />
+            </ProtectedRoute>
+          } 
+        />
       </Routes>
     </>
   );
