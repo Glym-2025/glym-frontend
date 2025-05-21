@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { S } from "./style";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useCustomFont } from "../hooks/useCustomFont";
 import ReactQuill from 'react-quill-new';
 import 'quill/dist/quill.snow.css';
 import fontImage from '../shared/FONT_RESULT.png'
@@ -11,6 +12,8 @@ export default function FontCreationCompletePage() {
     const location = useLocation();
     const { fontUrl, fontName } = location.state || {};
     const [downloadError, setDownloadError] = useState(null);
+
+    useCustomFont(fontName. fontUrl);
 
     const handlePageChange = () => {
         navigate("/fontcreation");
@@ -53,7 +56,14 @@ export default function FontCreationCompletePage() {
                 theme="snow"
                 value={value}
                 onChange={setValue}
-                style={{ width: '1000px', height: '200px', margin: 'auto', marginTop: '30px', background: '#FFFFFF' }}
+                style={{
+                    width: '1000px',
+                    height: '200px',
+                    margin: 'auto',
+                    marginTop: '30px',
+                    background: '#FFFFFF',
+                    fontFamily: `${fontName}, sans-serif`,
+                }}
             />
         </S.FontCreationCompletePage.Container>
     );
