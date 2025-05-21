@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { font } from "../styles/font";
 import { darken } from "polished";
+import { FontTestDiv } from "../features/fontcreation";
 
 // FontCreationPage
 const CreationButton = styled.button`
@@ -34,6 +35,11 @@ const shine = keyframes`
     border-color: #FF3F77;
   }
 `;
+
+const FontResult = styled(FontTestDiv)`
+    width: 800px;
+    animation: ${shine} 1.5s infinite;
+`;  
 
 const Container = styled.div`
     width: 100%;
@@ -73,11 +79,6 @@ const FontBox = styled.div`
     margin-top: 40px;
     margin-bottom: 50px;
     gap: 15px;
-`;
-
-const FontResultImage = styled.img`
-    width: 800px;
-    animation: ${shine} 1.5s infinite;
 `;
 
 const NewFontButton = styled.button`
@@ -173,7 +174,7 @@ export const S = {
         SubTitle,
         FontBox,
         NewFontButton,
-        FontResultImage,
+        FontResult,
     },
     FontListPage: {
         Container: ListContainer,
