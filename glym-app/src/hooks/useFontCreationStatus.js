@@ -28,22 +28,26 @@ export const useFontCreationStatus = (jobId, token) => {
 
         eventSource.onmessage = (event) => {
             try {
-                console.log("SSE event data:", event.data);
-                const data = JSON.parse(event.data);
+                console.log("🔥 Raw SSE data:", event.data);
 
-                setStatus(data.status);
-                console.log("📦 폰트 상태 업데이트:", data.status);
+                // 모든 "data:" 제거 (앞쪽만 지워도 됨)
+                const cleaned = event.data.replace(/^data:\s*/g, "");
 
-                if (data.status === 'COMPLETED') {
-                    setFontUrl(data.fontUrl);
+                const parsed = JSON.parse(cleaned); // 이제 에러 없음!
+
+                console.log("✅ 상태:", parsed.status);
+                setStatus(parsed.status);
+
+                if (parsed.status === 'COMPLETED') {
+                    setFontUrl(parsed.fontUrl);
                     eventSource.close();
-                } else if (data.status === 'FAILED') {
-                    setError(data.errorMessage);
+                } else if (parsed.status === 'FAILED') {
+                    setError(parsed.errorMessage || "폰트 생성 실패");
                     eventSource.close();
                 }
             } catch (e) {
                 setError("스트리밍 데이터 처리 중 오류가 발생했습니다.");
-                console.error("SSE message parsing error:", e);
+                console.error("❌ SSE message parsing error:", e);
                 eventSource.close();
             }
         };
