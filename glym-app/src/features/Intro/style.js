@@ -80,8 +80,9 @@ const Example = styled.div`
 `;
 
 const FontName = styled.p`
-    ${font(24, 400, 1.5)}
+    ${font(20, 400, 1.5)}
     margin-bottom: 10px;
+    color: #d9d9d9;
 `;
 
 const ExampleImg = styled.img`
